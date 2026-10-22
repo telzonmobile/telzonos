@@ -1737,7 +1737,14 @@ body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transit
          match /tz_private_photos/{d} { allow read, write: if request.auth != null && request.auth.uid == resource.data.uid; }
          match /tz_private_videos/{d} { allow read, write: if request.auth != null && request.auth.uid == resource.data.uid; }
        ================================================================ */
-    var TELZON_FIREBASE_CONFIG = null;
+    var TELZON_FIREBASE_CONFIG = {
+        apiKey: "AIzaSyAYYCuCi1_NhcyysWFoTzRP8Bo0yV13xw8",
+        authDomain: "telzonos-f66c5.firebaseapp.com",
+        projectId: "telzonos-f66c5",
+        storageBucket: "telzonos-f66c5.firebasestorage.app",
+        messagingSenderId: "375250012981",
+        appId: "1:375250012981:web:8d116cda635eecb3205a7c"
+    };
 
     var GEMINI_API_KEY = "";
     var GEMINI_MODEL = 'gemini-2.0-flash';
@@ -4565,8 +4572,8 @@ initIntro();
     ensure(document.querySelector('#lock-status-bar .status-right'));
   });
   once('marker',function(){
-    console.log('%c[TelzonOS] BUILD v6 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-    setTimeout(function(){ try{ showToast('TelzonOS · Build v6','Loaded OK · 2026-10-22','🔒'); }catch(e){} }, 9800);
+    console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+    
   });
 })();
 
@@ -4866,8 +4873,8 @@ initIntro();
   /* ---------- init ---------- */
   applySmoothness();
   setTimeout(refreshAccountUI, 1500);
-  console.log('%c[TelzonOS] BUILD v17 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v17','Loaded OK · 2026-10-22','🛡️'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5098,8 +5105,8 @@ initIntro();
 
   /* re-apply refresh rate */
   try{ applySmoothness(); }catch(e){}
-  console.log('%c[TelzonOS] BUILD v8 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v8','Loaded OK · 2026-10-22','☁️'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5149,8 +5156,8 @@ initIntro();
     }catch(e){}
   },2000);
 
-  console.log('%c[TelzonOS] BUILD v9 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v9','Loaded OK · 2026-10-22','🔓'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5171,8 +5178,8 @@ initIntro();
   document.addEventListener('pointerup', pressOff, {passive:true});
   document.addEventListener('pointercancel', pressOff, {passive:true});
   document.addEventListener('touchend', pressOff, {passive:true});
-  console.log('%c[TelzonOS] BUILD v10 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v10','Loaded OK · 2026-10-22','⌨️'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5203,8 +5210,8 @@ initIntro();
     }catch(e){}
   },1500);
 
-  console.log('%c[TelzonOS] BUILD v12 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v12','Loaded OK · 2026-10-22','🔓'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5221,8 +5228,8 @@ initIntro();
   var _aodls=aodToLockScreen; aodToLockScreen=function(){ _aodls(); repairLock(); };
   var _spe=showPinEntry; showPinEntry=function(){ DOM.lockScreen.style.display='flex'; DOM.lockScreen.style.pointerEvents='auto'; DOM.lockScreen.classList.remove('unlocked'); _spe(); };
   var _spw=showPwEntry; showPwEntry=function(){ DOM.lockScreen.style.display='flex'; DOM.lockScreen.style.pointerEvents='auto'; DOM.lockScreen.classList.remove('unlocked'); _spw(); };
-  console.log('%c[TelzonOS] BUILD v13 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v13','Loaded OK · 2026-10-22','🩹'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5342,8 +5349,8 @@ initIntro();
     }catch(e){}
   };
 
-  console.log('%c[TelzonOS] BUILD v14 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v14','Loaded OK · 2026-10-22','✨'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5422,8 +5429,8 @@ initIntro();
     })();
   })();
 
-  console.log('%c[TelzonOS] BUILD v15 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v15','Loaded OK · 2026-10-22','📱'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5473,8 +5480,8 @@ initIntro();
       'Telzon Browser loads almost any website inside the OS using automatic multi-route loading.']}
   ];
 
-  console.log('%c[TelzonOS] BUILD v16 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v16','Loaded OK · 2026-10-22','🧭'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
 
 
@@ -5518,9 +5525,13 @@ initIntro();
     }catch(e){}
   };
 
-  console.log('%c[TelzonOS] BUILD v17 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v17','Loaded OK · 2026-10-22','🛡️'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  
 })();
+
+
+/* ===== TELZON BUILD MARKER (canonical) ===== */
+setTimeout(function(){ try{ showToast('TelzonOS · Build v18','Loaded OK · Firebase connected ☁️','✅'); }catch(e){} }, 9800);
 
 })();
 </script>
