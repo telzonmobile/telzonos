@@ -1292,6 +1292,60 @@ body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transit
 .modal-status-bar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top) + 10px) 20px 0;font-size:13px;font-weight:600;color:#fff;z-index:5;pointer-events:none}
 .cc-btn.active,.cc-btn.active-cyan,.cc-btn.active-green,.cc-btn.active-orange,.cc-btn.active-purple,.cc-btn.active-yellow{background:var(--cc-on,rgba(167,139,250,.35))!important}
 
+
+/* ===== TELZON BUILD v15 ===== */
+/* touch press feedback */
+.tz-press{transform:scale(.94)!important;transition:transform .07s ease!important}
+/* desktop / tablet adaptation */
+@media (min-width:760px){
+  body{background:radial-gradient(1200px 800px at 50% 28%,#17172e 0%,#05050c 62%)}
+  #home-grid-0{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:24px 18px!important}
+  .home-app .app-icon{max-width:78px}
+  .home-time{font-size:88px}
+  .home-greeting{font-size:13px}
+  .home-widget{padding:20px}
+  .recent-app-card{width:420px;max-width:420px}
+  .panel{max-width:640px;left:50%;transform:translate(-50%,-100%)}
+  #notification-panel.visible,#control-panel.visible{transform:translate(-50%,0)}
+  .telzon-orb{width:46px;height:46px}
+}
+@media (min-width:1100px){
+  #home-grid-0{grid-template-columns:repeat(6,minmax(0,1fr))!important}
+  .home-app .app-icon{max-width:86px}
+}
+@media (hover:hover) and (pointer:fine){
+  .home-app .app-icon:hover{transform:scale(1.07)}
+  .home-app:active .app-icon{transform:scale(.88)}
+  .cc-btn:hover{background:rgba(255,255,255,.18)}
+  .settings-item:hover{background:rgba(255,255,255,.08)}
+  .cc-btn,.settings-item,.home-app,.page-dot{cursor:pointer}
+}
+/* phone landscape compactness */
+@media (max-height:500px) and (orientation:landscape){
+  .home-time{font-size:42px}
+  .home-header{margin-bottom:6px}
+  .home-widget{margin-bottom:8px;padding:10px 14px}
+  .intro-slide{max-height:44vh}
+}
+/* canvas fx layer */
+#tz-fx{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:.6}
+#home-screen-inner{z-index:2}
+
+
+/* ===== TELZON BUILD v16 ===== */
+.app-window>.telzon-status-bar{background:rgba(8,8,18,.82)!important;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid rgba(255,255,255,.06)}
+.telzon-assistant.in-app-assistant .telzon-assistant-backdrop{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:rgba(0,0,0,.45)!important}
+.telzon-assistant.in-app-assistant::after{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.telzon-assistant.in-app-assistant .telzon-assistant-circle{top:50%!important;bottom:auto!important;transform:translate(-50%,-50%) scale(.85)!important}
+.telzon-assistant.in-app-assistant.active .telzon-assistant-circle{transform:translate(-50%,-50%) scale(1)!important}
+.telzon-assistant.in-app-assistant .telzon-assistant-circle.big{transform:translate(-50%,-50%) scale(1.12)!important}
+.telzon-assistant.in-app-assistant .telzon-assistant-info{bottom:auto!important;top:calc(50% + 90px)}
+
+
+/* ===== TELZON BUILD v17 ===== */
+.settings-search-wrap{position:static!important;transform:none!important}
+.settings-heading{padding:4px 18px 10px}
+
 </style>
 </head>
 <body>
@@ -2545,7 +2599,7 @@ body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transit
         var backBtn = page.querySelector('#lock-back-btn');
         if(backBtn) backBtn.addEventListener('click', function(){ page.classList.remove('active'); setTimeout(function(){ page.remove(); }, 400); });
         var enableToggle = page.querySelector('#lock-enable-toggle');
-        if(enableToggle) enableToggle.addEventListener('click', function(){ if(state.lockEnabled){ showConfirmPopup('Turn off Lock Screen?','Removing your PIN or password will turn off device protection. Anyone with access to this device may open it.', function(){ state.lockEnabled = false; saveLockSettings(); page.remove(); openLockSettings(); haptic(15); }, 'OK'); } else { state.lockType = 'pin'; state.lockPinDigits = 4; openPinSetup('setup', function(){ if(!state.lockPin){ state.lockEnabled=false; } saveLockSettings(); page.remove(); openLockSettings(); }); } });
+        if(enableToggle) enableToggle.addEventListener('click', function(){ if(state.lockEnabled){ tzVerifyLock(function(){ showConfirmPopup('Turn off Lock Screen?','Removing your PIN or password will turn off device protection. Anyone with access to this device may open it.', function(){ state.lockEnabled=false; saveLockSettings(); page.remove(); openLockSettings(); haptic(15); }, 'OK'); }); } else { state.lockType = 'pin'; state.lockPinDigits = 4; openPinSetup('setup', function(){ if(!state.lockPin){ state.lockEnabled=false; } saveLockSettings(); page.remove(); openLockSettings(); }); } });
         var lockTypeOptions = page.querySelectorAll('[data-locktype]');
         for(var i=0;i<lockTypeOptions.length;i++){ (function(opt){ opt.addEventListener('click', function(){ var lt = opt.getAttribute('data-locktype'); if(lt === 'pin') openPinSetup('setup', function(){ state.lockType='pin'; if(!state.lockPin){ state.lockEnabled=false; } saveLockSettings(); page.remove(); openLockSettings(); }); else openPasswordSetup(function(){ if(state.lockPassword){ state.lockType='password'; } saveLockSettings(); page.remove(); openLockSettings(); }); haptic(10); }); })(lockTypeOptions[i]); }
     }
@@ -3587,9 +3641,17 @@ body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transit
     function closeApp(){
         if(state.isAppAnimating || !state.currentOpenApp) return;
         state.isAppAnimating = true;
-        var rect = state.currentAppIcon 
-            ? state.currentAppIcon.getBoundingClientRect() 
-            : { left: window.innerWidth/2-30, top: window.innerHeight/2-30, width:60, height:60 };
+        var rect;
+        if(state.currentAppIcon && document.contains(state.currentAppIcon)){
+            var _hsInner=document.getElementById('home-screen-inner');
+            var _prevT=_hsInner.style.transition;
+            _hsInner.style.transition='none';
+            DOM.homeScreen.classList.remove('app-transitioning');
+            rect=state.currentAppIcon.getBoundingClientRect();
+            DOM.homeScreen.classList.add('app-transitioning');
+            _hsInner.style.transition=_prevT;
+            if(!rect || rect.width<2){ rect={ left: window.innerWidth/2-30, top: window.innerHeight/2-30, width:60, height:60 }; }
+        } else { rect={ left: window.innerWidth/2-30, top: window.innerHeight/2-30, width:60, height:60 }; }
         DOM.appWindow.classList.remove('open','opening');
         DOM.appWindow.classList.add('closing');
         DOM.appWindow.style.top = '0px';
@@ -4804,8 +4866,8 @@ initIntro();
   /* ---------- init ---------- */
   applySmoothness();
   setTimeout(refreshAccountUI, 1500);
-  console.log('%c[TelzonOS] BUILD v14 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-  setTimeout(function(){ try{ showToast('TelzonOS · Build v14','Loaded OK · 2026-10-22','✨'); }catch(e){} }, 9800);
+  console.log('%c[TelzonOS] BUILD v17 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v17','Loaded OK · 2026-10-22','🛡️'); }catch(e){} }, 9800);
 })();
 
 
@@ -5282,6 +5344,182 @@ initIntro();
 
   console.log('%c[TelzonOS] BUILD v14 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
   setTimeout(function(){ try{ showToast('TelzonOS · Build v14','Loaded OK · 2026-10-22','✨'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v15 ================= */
+(function(){
+  var TE=window.__TZP=window.__TZP||{}; if(TE.v15) return; TE.v15=1;
+
+  /* 1) Browser — multi-route proxy chain (v14 handler calls this global) */
+  window.tzProxyBrowse = function(val){
+    var wrap=document.getElementById('tb-frame-wrap'); if(!wrap) return;
+    var url=val.trim(); if(!url) return;
+    if(!/^https?:\/\//i.test(url)){ if(url.indexOf('.')===-1||url.indexOf(' ')!==-1){ url='https://duckduckgo.com/html/?q='+encodeURIComponent(val); } else { url='https://'+url; } }
+    var routes=[
+      function(u){ return fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(u)).then(function(r){ if(!r.ok) throw new Error('r'+r.status); return r.text(); }); },
+      function(u){ return fetch('https://corsproxy.io/?url='+encodeURIComponent(u)).then(function(r){ if(!r.ok) throw new Error('r'+r.status); return r.text(); }); },
+      function(u){ return fetch('https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u)).then(function(r){ if(!r.ok) throw new Error('r'+r.status); return r.text(); }); }
+    ];
+    function status(t){ var el=document.getElementById('tb-status'); if(el) el.textContent=t; }
+    wrap.innerHTML='<div id="tb-loading" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:14px;justify-content:center;align-items:center;background:#1a1a2e;color:rgba(255,255,255,.65);z-index:2;text-align:center;padding:20px"><div style="font-size:34px">🌐</div><div style="font-size:14px;font-weight:500;color:#fff">'+esc(val)+'</div><div id="tb-status" style="font-size:12px">Connecting…</div></div>';
+    var i=0;
+    (function next(){
+      if(i>=routes.length){
+        wrap.innerHTML='<div class="tbrowser-empty"><div class="tbrowser-empty-icon">⚠️</div><div style="font-size:15px;font-weight:500;color:#fff">This site cannot be loaded inside TelzonOS</div><div style="font-size:12.5px;line-height:1.7">The site blocks all proxy routes.<br><a href="'+url+'" target="_blank" style="color:#a78bfa">Open '+esc(url)+' in a new tab ↗</a></div><button class="videoplayer-add-btn" style="margin-top:6px" onclick="tzProxyBrowse(document.getElementById(\'tb-url\').value)">Retry</button></div>';
+        return;
+      }
+      var n=i+1;
+      status('Route '+n+'/3 …');
+      var to=setTimeout(function(){ i++; next(); },9000);
+      routes[i](url).then(function(html){
+        clearTimeout(to);
+        status('Route '+n+' ✓');
+        try{
+          if(html.length>6000000){ status('Page too large — open externally'); setTimeout(function(){ i++; next(); },600); return; }
+          if(html.toLowerCase().indexOf('<head')>-1){ html=html.replace(/<head([^>]*)>/i,'<head$1><base href="'+url+'">'); }
+          else { html='<base href="'+url+'">'+html; }
+        }catch(e){}
+        wrap.innerHTML='';
+        var fr=document.createElement('iframe');
+        fr.className='tbrowser-frame';
+        fr.setAttribute('sandbox','allow-same-origin allow-scripts allow-forms allow-popups allow-modals');
+        fr.srcdoc=html;
+        wrap.appendChild(fr);
+      }).catch(function(){ clearTimeout(to); i++; next(); });
+    })();
+  };
+
+  /* 2) Home touch responsiveness — instant press feedback */
+  var PRESS_SEL='.home-app,.cc-btn,.settings-item,.page-dot,.ws-tab,.tstore-tab,.photos-filter,.timer-preset,.alarm-add-btn,.intro-arrow';
+  document.addEventListener('pointerdown',function(e){ var t=e.target.closest&&e.target.closest(PRESS_SEL); if(t) t.classList.add('tz-press'); },{passive:true});
+  ['pointerup','pointercancel'].forEach(function(ev){ document.addEventListener(ev,function(e){ var t=e.target.closest&&e.target.closest(PRESS_SEL); if(t) setTimeout(function(){ t.classList.remove('tz-press'); },60); },{passive:true}); });
+
+  /* 3) Canvas particle layer on home (respects power-save mode) */
+  (function(){
+    var hs=document.getElementById('home-screen'); if(!hs) return;
+    var cv=document.createElement('canvas'); cv.id='tz-fx';
+    hs.insertBefore(cv, hs.firstChild);
+    var ctx=cv.getContext('2d'); var W,H;
+    var P=[]; var cols=['167,139,250','111,177,255','255,122,184','74,222,128'];
+    function resize(){ W=cv.width=hs.clientWidth; H=cv.height=hs.clientHeight; }
+    resize(); window.addEventListener('resize',resize);
+    var N= window.innerWidth<600 ? 24 : 38;
+    for(var i=0;i<N;i++){ P.push({x:Math.random()*2000,y:Math.random()*2000,r:Math.random()*2.2+.7,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,c:cols[i%4],a:Math.random()*.5+.2,pulse:Math.random()*6.28}); }
+    (function loop(){
+      requestAnimationFrame(loop);
+      if(document.hidden) return;
+      if(state._effSmooth==='save'){ ctx.clearRect(0,0,W,H); return; }
+      ctx.clearRect(0,0,W,H);
+      for(var i=0;i<P.length;i++){ var p=P[i];
+        p.x+=p.vx; p.y+=p.vy; p.pulse+=.02;
+        if(p.x<0)p.x=W; if(p.x>W)p.x=0; if(p.y<0)p.y=H; if(p.y>H)p.y=0;
+        var rr=p.r*(1+Math.sin(p.pulse)*.25);
+        ctx.beginPath(); ctx.arc(p.x%W,p.y%H,rr,0,6.283);
+        ctx.fillStyle='rgba('+p.c+','+(p.a*(0.7+Math.sin(p.pulse)*.3)).toFixed(3)+')';
+        ctx.fill();
+      }
+    })();
+  })();
+
+  console.log('%c[TelzonOS] BUILD v15 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v15','Loaded OK · 2026-10-22','📱'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v16 ================= */
+(function(){
+  var TF=window.__TZP=window.__TZP||{}; if(TF.v16) return; TF.v16=1;
+
+  /* Settings search bar — pinned while scrolling (absolute-follow) */
+  setInterval(function(){
+    try{
+      if(!(state.currentOpenApp && state.currentOpenApp.name==='Settings')) return;
+      var app=DOM.appWindowContent.querySelector('.settings-app'); if(!app) return;
+      var wrap=app.querySelector('.settings-search-wrap'); if(!wrap || wrap.__pinned) return; wrap.__pinned=1;
+      app.style.position='relative';
+      wrap.style.position='absolute'; wrap.style.top='0'; wrap.style.left='0'; wrap.style.right='0'; wrap.style.zIndex='30';
+      var onScroll=function(){ if(!wrap.isConnected) return; wrap.style.transform='translateY('+DOM.appWindowContent.scrollTop+'px)'; };
+      DOM.appWindowContent.addEventListener('scroll', onScroll, {passive:true});
+    }catch(e){}
+  },1000);
+
+  /* Orb tap in Settings: back to main list; double-tap fully exits */
+  var _closeApp=closeApp; var _lastTap=0;
+  closeApp=function(){
+    try{
+      if(state.currentOpenApp && state.currentOpenApp.name==='Settings'){
+        var now=Date.now();
+        var subs=document.querySelectorAll('.settings-subpage.active');
+        if(subs.length && (now-_lastTap)>380){
+          _lastTap=now; haptic(10);
+          for(var i=0;i<subs.length;i++){ (function(sub){ sub.classList.remove('active'); setTimeout(function(){ if(sub.parentNode) sub.parentNode.removeChild(sub); },420); })(subs[i]); }
+          return;
+        }
+        _lastTap=now;
+      }
+    }catch(e){}
+    _closeApp();
+  };
+
+  /* Quick Tour — What's New */
+  window.TZ_WHATS_NEW=[
+    {emoji:'💡',title:'Tips & Shortcuts',bullets:[
+      'Inside any app, tap the bottom orb ONCE to go back — in Settings it returns to the main list.',
+      'Tap the orb TWICE quickly to fully close the app.',
+      'Long-press the orb for TelzonAI — it opens centered on screen, no blur.',
+      'The Settings search bar stays pinned on top while you scroll.',
+      'Closing an app animates back to its own icon — even after scrolling pages.',
+      'Telzon Browser loads almost any website inside the OS using automatic multi-route loading.']}
+  ];
+
+  console.log('%c[TelzonOS] BUILD v16 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v16','Loaded OK · 2026-10-22','🧭'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v17 ================= */
+(function(){
+  var TG=window.__TZP=window.__TZP||{}; if(TG.v17) return; TG.v17=1;
+
+  /* Settings heading above search bar */
+  var _gsh=getSettingsHTML;
+  getSettingsHTML=function(){
+    var h=_gsh();
+    if(h.indexOf('settings-heading')===-1){
+      h=h.replace('<div class="settings-search-wrap">','<div class="settings-heading">Settings</div><div class="settings-search-wrap">');
+    }
+    return h;
+  };
+
+  /* Verify PIN/password before sensitive changes (lock off) */
+  window.tzVerifyLock = function(cb){
+    try{
+      if(!state.lockEnabled){ if(cb) cb(); return; }
+      lockScreenFunc();
+      state.currentScreen='lock';
+      state._verifyOnly=true; state._verifyCb=cb||null;
+      if(state.lockType==='password'){ showPwEntry(); if(DOM.lockPwTitle) DOM.lockPwTitle.textContent='Verify Password'; }
+      else { showPinEntry(); if(DOM.lockPinTitle) DOM.lockPinTitle.textContent='Verify PIN'; }
+      showToast('Security','Verify yourself to continue','🔒');
+    }catch(e){ console.error(e); if(cb) cb(); }
+  };
+  var _u=unlockScreen;
+  unlockScreen=function(){
+    _u();
+    try{
+      if(DOM.lockPinTitle) DOM.lockPinTitle.textContent='Enter PIN';
+      if(DOM.lockPwTitle) DOM.lockPwTitle.textContent='Enter Password';
+      if(state._verifyOnly){
+        state._verifyOnly=false;
+        var cb=state._verifyCb; state._verifyCb=null;
+        if(cb) setTimeout(cb, 420);
+      }
+    }catch(e){}
+  };
+
+  console.log('%c[TelzonOS] BUILD v17 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v17','Loaded OK · 2026-10-22','🛡️'); }catch(e){} }, 9800);
 })();
 
 })();
