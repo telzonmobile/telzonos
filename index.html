@@ -1234,6 +1234,64 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
 #intro-screen .liquid-glass-btn{padding:16px 54px;font-size:16px;font-weight:600;letter-spacing:1.5px}
 .intro-hint{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:2px;text-transform:uppercase}
 
+
+/* ===== LOCKOUT ===== */
+.lockout-screen{position:absolute;inset:0;z-index:6;display:none;flex-direction:column;justify-content:center;align-items:center;gap:12px;background:rgba(8,8,20,.94);text-align:center;padding:30px}
+.lock-screen.lockout-mode .lockout-screen{display:flex;animation:lockoutIn .4s cubic-bezier(.22,.8,.3,1)}
+@keyframes lockoutIn{0%{opacity:0;transform:scale(.96)}100%{opacity:1;transform:scale(1)}}
+.lockout-icon{font-size:56px;filter:grayscale(.2)}
+.lockout-title{font-size:22px;font-weight:600;color:#fff;letter-spacing:.5px}
+.lockout-sub{font-size:13px;line-height:1.6;color:rgba(255,255,255,.55)}
+.lockout-timer{font-size:52px;font-weight:100;color:#ff6b6b;font-variant-numeric:tabular-nums;margin-top:8px;text-shadow:0 0 30px rgba(255,107,107,.4)}
+.lock-screen.lockout-mode .lock-shortcuts,.lock-screen.lockout-mode .lock-bottom,.lock-screen.lockout-mode .lock-notifications{opacity:0!important;pointer-events:none!important;visibility:hidden}
+
+
+/* ===== TELZON BUILD v7 ===== */
+#home-screen::before{transform:translate(var(--tzpx,0px),var(--tzpy,0px)) scale(1.15)}
+body.tz-save #home-screen::before{opacity:.45!important}
+body.tz-save .home-app .app-icon{filter:none!important}
+body.tz-save .home-widget{box-shadow:inset 0 1px 0 rgba(255,255,255,.08)!important}
+body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transition-spring)}
+.tz-sheet{position:fixed;inset:0;z-index:9990;background:rgba(5,5,15,.8);display:none;justify-content:center;align-items:center;padding:24px}
+.tz-sheet.active{display:flex}
+.tz-sheet-box{background:radial-gradient(circle at 30% 15%,rgba(120,90,255,.3),rgba(20,20,38,.98));border:1px solid rgba(255,255,255,.18);border-radius:26px;padding:26px 22px;max-width:380px;width:100%;text-align:center;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.tz-google-logo{width:52px;height:52px;border-radius:50%;background:#fff;display:flex;justify-content:center;align-items:center;margin:0 auto 14px;font-size:24px;font-weight:700;color:#4285F4}
+.tz-sheet-title{font-size:18px;font-weight:600;color:#fff;margin-bottom:6px}
+.tz-sheet-sub{font-size:12.5px;color:rgba(255,255,255,.55);margin-bottom:18px;line-height:1.5}
+.tz-sheet-input{width:100%;padding:13px 16px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);color:#fff;font-size:14px;outline:none;margin-bottom:10px;font-family:inherit}
+.tz-sheet-btn{width:100%;padding:14px;border-radius:100px;border:none;font-size:15px;font-weight:600;cursor:pointer;margin-top:6px}
+.tz-sheet-btn.google{background:linear-gradient(135deg,#4285F4,#3367D6);color:#fff;box-shadow:0 8px 24px rgba(66,133,244,.4)}
+.tz-sheet-btn.plain{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.tz-vis-btn{display:flex;align-items:center;gap:12px;width:100%;padding:15px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font-size:14px;cursor:pointer;margin-bottom:10px;text-align:left}
+.tz-vis-btn:active{background:rgba(167,139,250,.25)}
+.tz-vis-btn .vi{font-size:22px}
+.tz-vis-btn .vt{flex:1}.tz-vis-btn .vt b{display:block;font-size:14px}.tz-vis-btn .vt span{font-size:11.5px;color:rgba(255,255,255,.55)}
+.tz-upload-tile{position:relative}
+.tz-badge{position:absolute;left:6px;top:6px;padding:3px 8px;border-radius:100px;font-size:9px;font-weight:700;background:rgba(0,0,0,.65);color:#4ade80;border:1px solid rgba(74,222,128,.4);z-index:2}
+.tz-badge.priv{color:#fbbf24;border-color:rgba(251,191,36,.4)}
+.tz-acct-card{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:18px;margin-bottom:16px}
+.tz-acct-av{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#7c3aed);display:flex;justify-content:center;align-items:center;font-size:22px;font-weight:600;color:#fff}
+.vp-upload-tile{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.vp-upload-tile .vi{font-size:26px}
+.vp-upload-tile .vt{flex:1;font-size:13px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+
+/* ===== PIN-ONLY LOCK PROMPT ===== */
+.lock-screen.pin-only-mode .lock-screen-bg,.lock-screen.pin-only-mode .lock-top,.lock-screen.pin-only-mode .lock-status-bar,.lock-screen.pin-only-mode .lock-shortcuts,.lock-screen.pin-only-mode .lock-bottom,.lock-screen.pin-only-mode .lock-notifications{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+.lock-screen.pin-only-mode .lock-pin-screen{background:rgba(8,8,20,.88)}
+
+
+/* ===== PIN KEY PRESS (v10) ===== */
+.lock-pin-key{transition:transform .1s ease,background .15s ease!important}
+.lock-pin-key.pressed{transform:scale(.85)!important;background:rgba(167,139,250,.55)!important;border-color:rgba(167,139,250,.9)!important}
+
+
+/* ===== v14 polish ===== */
+.home-edit-done{top:calc(env(safe-area-inset-top) + 48px)!important}
+.cc-btn[data-cc="darkmode"]{display:none!important}
+.modal-status-bar{position:absolute;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:calc(env(safe-area-inset-top) + 10px) 20px 0;font-size:13px;font-weight:600;color:#fff;z-index:5;pointer-events:none}
+.cc-btn.active,.cc-btn.active-cyan,.cc-btn.active-green,.cc-btn.active-orange,.cc-btn.active-purple,.cc-btn.active-yellow{background:var(--cc-on,rgba(167,139,250,.35))!important}
+
 </style>
 </head>
 <body>
@@ -1279,6 +1337,12 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         <input type="password" class="lock-pw-input" id="lock-pw-input" placeholder="Password">
         <button class="lock-pw-btn" id="lock-pw-btn">Unlock</button>
         <div class="lock-pw-cancel" id="lock-pw-cancel">Cancel</div>
+    </div>
+    <div class="lockout-screen" id="lockout-screen">
+        <div class="lockout-icon">🔒</div>
+        <div class="lockout-title">Phone is Locked</div>
+        <div class="lockout-sub">Too many incorrect attempts.<br>Please wait before trying again.</div>
+        <div class="lockout-timer" id="lockout-timer">60s</div>
     </div>
 </div>
 <!-- ===== AOD (Always-On Display) ===== -->
@@ -1574,18 +1638,18 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         <button class="cc-edit-btn" id="cc-edit-btn">Edit</button>
     </div>
     <div class="cc-grid" id="cc-grid">
-        <div class="cc-btn active" data-cc="wifi"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><span>Wi-Fi</span></div>
-        <div class="cc-btn active" data-cc="bluetooth"><svg viewBox="0 0 24 24"><path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29z"/></svg><span>Bluetooth</span></div>
-        <div class="cc-btn active-green" data-cc="cellular"><svg viewBox="0 0 24 24"><path d="M2 22h20V2z"/></svg><span>Cellular</span></div>
+        <div class="cc-btn" data-cc="wifi"><svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3c-1.65-1.66-4.34-1.66-6 0zm-4-4l2 2c2.76-2.76 7.24-2.76 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg><span>Wi-Fi</span></div>
+        <div class="cc-btn" data-cc="bluetooth"><svg viewBox="0 0 24 24"><path d="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29z"/></svg><span>Bluetooth</span></div>
+        <div class="cc-btn" data-cc="cellular"><svg viewBox="0 0 24 24"><path d="M2 22h20V2z"/></svg><span>Cellular</span></div>
         <div class="cc-btn" data-cc="airplane"><svg viewBox="0 0 24 24"><path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/></svg><span>Airplane</span></div>
-        <div class="cc-btn active-cyan" data-cc="flashlight"><svg viewBox="0 0 24 24"><path d="M6 2v6h.01L6 8.01 10 12v10h4V12l4-3.99V2H6zm6 9.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg><span>Flashlight</span></div>
-        <div class="cc-btn active-orange" data-cc="dnd"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/></svg><span>DND</span></div>
-        <div class="cc-btn active-purple" data-cc="rotation"><svg viewBox="0 0 24 24"><path d="M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5C23.44 4.84 18.29 0 12 0l-.66.03 3.81 3.81 1.33-1.32z"/></svg><span>Rotate</span></div>
+        <div class="cc-btn" data-cc="flashlight"><svg viewBox="0 0 24 24"><path d="M6 2v6h.01L6 8.01 10 12v10h4V12l4-3.99V2H6zm6 9.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg><span>Flashlight</span></div>
+        <div class="cc-btn" data-cc="dnd"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/></svg><span>DND</span></div>
+        <div class="cc-btn" data-cc="rotation"><svg viewBox="0 0 24 24"><path d="M16.48 2.52c3.27 1.55 5.61 4.72 5.97 8.48h1.5C23.44 4.84 18.29 0 12 0l-.66.03 3.81 3.81 1.33-1.32z"/></svg><span>Rotate</span></div>
         <div class="cc-btn" data-cc="darkmode"><svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg><span>Dark</span></div>
     </div>
     <div class="slider-row">
-        <div class="slider-item"><div class="slider-icon">☀</div><div class="slider-track" id="brightness-track"><div class="slider-fill" style="width:75%"></div></div></div>
-        <div class="slider-item"><div class="slider-icon">🔊</div><div class="slider-track" id="volume-track"><div class="slider-fill" style="width:50%"></div></div></div>
+        <div class="slider-item"><div class="slider-icon">☀</div><div class="slider-track" id="brightness-track"><div class="slider-fill" style="width:90%"></div></div></div>
+        <div class="slider-item"><div class="slider-icon">🔊</div><div class="slider-track" id="volume-track"><div class="slider-fill" style="width:80%"></div></div></div>
     </div>
 </div>
 <!-- ===== PERFORMANCE POPUP ===== -->
@@ -1606,6 +1670,20 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
   <script>
 (function(){
     'use strict';
+
+    /* ================================================================
+       TELZON FIREBASE — paste your web config here ONCE (free, ~3 min):
+       1. console.firebase.google.com  → Add project
+       2. Project settings → Add Web app → copy the firebaseConfig object
+       3. Authentication → Sign-in method → enable Google
+       4. Firestore Database → Create database (test mode)
+       Recommended Firestore rules:
+         match /tz_public_photos/{d}  { allow read: if true; allow write: if request.auth != null; }
+         match /tz_public_videos/{d}  { allow read: if true; allow write: if request.auth != null; }
+         match /tz_private_photos/{d} { allow read, write: if request.auth != null && request.auth.uid == resource.data.uid; }
+         match /tz_private_videos/{d} { allow read, write: if request.auth != null && request.auth.uid == resource.data.uid; }
+       ================================================================ */
+    var TELZON_FIREBASE_CONFIG = null;
 
     var GEMINI_API_KEY = "";
     var GEMINI_MODEL = 'gemini-2.0-flash';
@@ -1649,7 +1727,7 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         goals:'<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>',
         drawing:'<svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>',
         photoeditor:'<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>',
-        visualizer:'<svg viewBox="0 0 24 24"><path d="M12 3v18M8 7v10M16 5v14M4 10v4M20 8v8"/></svg>',
+        visualizer:'<svg viewBox="0 0 24 24"><path d="M3 14h2.5v4H3zM7.25 9h2.5v9h-2.5zM11.5 5h2.5v13h-2.5zM15.75 8h2.5v10h-2.5zM20 3h2.5v15H20z"/></svg>',
         videoplayer:'<svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>',
         sticker:'<svg viewBox="0 0 24 24"><path d="M20 12c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8c.03 0 .05 0 .08.01L20 12zm-8-6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.2 0 4.13-1.19 5.18-2.97L11.5 8.5V6zm-1 2v3.17L8.83 12 8 11.17 11 8.17V8zm-3 4v2h4v-2H8z"/></svg>',
         maps:'<svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>'
@@ -1762,7 +1840,7 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         assistantOpen:false,assistantLongPress:false,assistantListenRecognition:null,
         systemNotifications:[],lightMode:false,isTyping:false,
         widgetMotivationIndex:0,widgetMotivationTimer:null,
-        brightness:75,volume:50,
+        brightness:90,volume:80,
         lockEnabled:false,lockType:'pin',lockPin:'',lockPassword:'',
         lockPinDigits:4,tempPin:'',currentPinInput:'',
         lockWallpaper:'default',lockClockSize:'normal',lockClockColor:'#ffffff',
@@ -1779,7 +1857,7 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         stickerState:{tool:'brush',color:'#000000',size:10,isDrawing:false},
         homeWallpaper:'default',homePageAnimation:'slide',
         showBatteryPercent:false, pendingShortcutApp:null, zoomMoveHandler:null, zoomUpHandler:null, visualizerAudio:null, clockTickInterval:null, worldClockInterval:null,
-        wifiEnabled:true, bluetoothEnabled:true, cellularEnabled:true,
+        wifiEnabled:false, bluetoothEnabled:false, cellularEnabled:false,
         airplaneEnabled:false, flashlightEnabled:false, dndEnabled:false, rotationEnabled:true
     };
 
@@ -1832,7 +1910,7 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         var pct=Math.round(level*100);
         batteryLevelPct = pct;
         isCharging = charging;
-        for(var i=0;i<state.batteryFills.length;i++){ var fill=state.batteryFills[i];if(!fill)continue; fill.style.width=pct+'%'; if(pct<=20&&!charging)fill.classList.add('low');else fill.classList.remove('low'); }
+        var _allFills=document.querySelectorAll('.battery-fill'); for(var i=0;i<_allFills.length;i++){ var fill=_allFills[i]; fill.style.width=pct+'%'; if(pct<=20&&!charging)fill.classList.add('low');else fill.classList.remove('low'); }
         for(var p=0;p<DOM.batteryPercentages.length;p++){ DOM.batteryPercentages[p].textContent = pct + '%'; if(state.showBatteryPercent) DOM.batteryPercentages[p].classList.add('visible'); else DOM.batteryPercentages[p].classList.remove('visible'); }
         for(var c=0;c<DOM.chargingIcons.length;c++){ if(charging) DOM.chargingIcons[c].classList.add('active'); else DOM.chargingIcons[c].classList.remove('active'); }
     }
@@ -2110,11 +2188,42 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         });
         DOM.lockScreen.addEventListener('pointerup', function(){ isDragging = false; });
         DOM.lockScreen.addEventListener('pointercancel', function(){ isDragging = false; });
-        var clockPressTimer = null;
+        var lStartY=0, lDrag=false;
+        DOM.lockScreen.addEventListener('touchstart', function(e){
+            if(DOM.lockScreen.classList.contains('pin-mode')||DOM.lockScreen.classList.contains('pw-mode')||DOM.lockScreen.classList.contains('lockout-mode')) return;
+            if(DOM.lockTime.getAttribute('data-editing')==='true') return;
+            if(e.target.closest('.lock-shortcut-btn')) return;
+            lStartY=e.touches[0].clientY; lDrag=true;
+        }, {passive:true});
+        DOM.lockScreen.addEventListener('touchmove', function(e){
+            if(!lDrag) return;
+            if(lStartY - e.touches[0].clientY > 80){ lDrag=false; attemptUnlock(); }
+        }, {passive:true});
+        DOM.lockScreen.addEventListener('touchend', function(){ lDrag=false; });
+        DOM.lockScreen.addEventListener('touchcancel', function(){ lDrag=false; });
+        var clockPressTimer = null, clockPressX = 0, clockPressY = 0;
         DOM.lockTime.addEventListener('contextmenu', function(e){ e.preventDefault(); });
-        DOM.lockTime.addEventListener('pointerdown', function(){ clockPressTimer = setTimeout(function(){ openClockEdit(); }, 600); });
-        DOM.lockTime.addEventListener('pointerup', function(){ if(clockPressTimer) clearTimeout(clockPressTimer); });
-        DOM.lockTime.addEventListener('pointerleave', function(){ if(clockPressTimer) clearTimeout(clockPressTimer); });
+        function clockHoldStart(e){
+            if(clockPressTimer) clearTimeout(clockPressTimer);
+            if(e && e.touches && e.touches[0]){ clockPressX=e.touches[0].clientX; clockPressY=e.touches[0].clientY; }
+            else if(e){ clockPressX=e.clientX; clockPressY=e.clientY; }
+            clockPressTimer=setTimeout(function(){ clockPressTimer=null; try{ DOM.lockTime.setAttribute('data-editing','true'); openClockEdit(); haptic(15); }catch(err){ console.error(err); } },450);
+        }
+        function clockHoldMove(e){
+            if(!clockPressTimer) return;
+            var x,y; if(e.touches&&e.touches[0]){ x=e.touches[0].clientX; y=e.touches[0].clientY; } else { x=e.clientX; y=e.clientY; }
+            if(Math.hypot(x-clockPressX,y-clockPressY)>12){ clearTimeout(clockPressTimer); clockPressTimer=null; }
+        }
+        function clockHoldEnd(){ if(clockPressTimer){ clearTimeout(clockPressTimer); clockPressTimer=null; } }
+        DOM.lockTime.addEventListener('pointerdown', clockHoldStart);
+        DOM.lockTime.addEventListener('touchstart', clockHoldStart, {passive:true});
+        DOM.lockTime.addEventListener('pointermove', clockHoldMove);
+        DOM.lockTime.addEventListener('touchmove', clockHoldMove, {passive:true});
+        DOM.lockTime.addEventListener('pointerup', clockHoldEnd);
+        DOM.lockTime.addEventListener('pointercancel', clockHoldEnd);
+        DOM.lockTime.addEventListener('pointerleave', clockHoldEnd);
+        DOM.lockTime.addEventListener('touchend', clockHoldEnd);
+        DOM.lockTime.addEventListener('touchcancel', clockHoldEnd);
         if(DOM.lockShortcutLeft) DOM.lockShortcutLeft.addEventListener('click', function(e){ e.stopPropagation(); openLockShortcut('left'); });
         if(DOM.lockShortcutRight) DOM.lockShortcutRight.addEventListener('click', function(e){ e.stopPropagation(); openLockShortcut('right'); });
         initPinPad();
@@ -2182,7 +2291,7 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
     }
     function showPinEntry(){ DOM.lockScreen.classList.add('pin-mode'); state.currentPinInput = ''; renderPinDots(); }
     function showPwEntry(){ DOM.lockScreen.classList.add('pw-mode'); setTimeout(function(){ if(DOM.lockPwInput) DOM.lockPwInput.focus(); }, 300); }
-    function cancelUnlock(){ DOM.lockScreen.classList.remove('pin-mode','pw-mode'); state.currentPinInput = ''; if(DOM.lockPwInput) DOM.lockPwInput.value = ''; }
+    function cancelUnlock(){ DOM.lockScreen.classList.remove('pin-mode','pw-mode'); DOM.lockScreen.classList.remove('unlocked'); DOM.lockScreen.style.display='flex'; DOM.lockScreen.style.pointerEvents='auto'; DOM.lockScreen.style.opacity=''; DOM.lockScreen.style.transition=''; state.currentPinInput=''; if(DOM.lockPwInput) DOM.lockPwInput.value=''; if(DOM.lockPinTitle) DOM.lockPinTitle.textContent='Enter PIN'; if(DOM.lockPinCancel) DOM.lockPinCancel.textContent='Cancel'; }
     function renderPinDots(){
         if(!DOM.lockPinDots) return;
         var html = '';
@@ -2198,17 +2307,56 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         var btns = DOM.lockPinPad.querySelectorAll('.lock-pin-key[data-key]');
         for(var b=0;b<btns.length;b++){ (function(btn){ btn.addEventListener('click', function(){ var key = btn.getAttribute('data-key'); if(!key) return; haptic(8); if(key === 'del'){ state.currentPinInput = state.currentPinInput.slice(0, -1); renderPinDots(); } else { if(state.currentPinInput.length < state.lockPinDigits){ state.currentPinInput += key; renderPinDots(); if(state.currentPinInput.length === state.lockPinDigits){ setTimeout(verifyPin, 200); } } } }); })(btns[b]); }
     }
+    function registerFailedAttempt(){
+        state.pinAttempts=(state.pinAttempts||0)+1;
+        haptic([50,30,50,30,50]);
+        if(state.pinAttempts>=6){ startLockout(60); return; }
+        if(DOM.lockPinTitle) DOM.lockPinTitle.textContent='Incorrect PIN · '+(6-state.pinAttempts)+' left';
+        var dots=DOM.lockPinDots.querySelectorAll('.lock-pin-dot');
+        for(var i=0;i<dots.length;i++) dots[i].classList.add('error');
+        setTimeout(function(){ state.currentPinInput=''; renderPinDots(); },450);
+    }
+    function startLockout(sec){
+        state.lockoutUntil=Date.now()+sec*1000;
+        DOM.lockScreen.classList.remove('pin-mode','pw-mode');
+        DOM.lockScreen.classList.add('lockout-mode');
+        haptic([100,50,100,50,100]);
+        var tick=function(){
+            var left=Math.max(0,Math.ceil((state.lockoutUntil-Date.now())/1000));
+            var el=document.getElementById('lockout-timer'); if(el) el.textContent=left+'s';
+            if(left<=0){ endLockout(); return; }
+            setTimeout(tick,300);
+        };
+        tick();
+    }
+    function endLockout(){
+        state.lockoutUntil=0; state.pinAttempts=0;
+        DOM.lockScreen.classList.remove('lockout-mode');
+        if(state.lockType==='password') showPwEntry(); else showPinEntry();
+        haptic(10);
+    }
     function verifyPin(){
-        if(state.currentPinInput === state.lockPin){ haptic([10,30,10]); unlockScreen(); }
-        else { haptic([50,30,50,30,50]); var dots = DOM.lockPinDots.querySelectorAll('.lock-pin-dot'); for(var i=0;i<dots.length;i++) dots[i].classList.add('error'); setTimeout(function(){ state.currentPinInput = ''; renderPinDots(); }, 400); }
+        if(state.lockoutUntil && Date.now() < state.lockoutUntil) return;
+        if(state.currentPinInput === state.lockPin){ state.pinAttempts=0; haptic([10,30,10]); unlockScreen(); }
+        else { registerFailedAttempt(); }
     }
     function attemptPasswordUnlock(){
         var pw = DOM.lockPwInput.value;
-        if(pw === state.lockPassword){ haptic([10,30,10]); unlockScreen(); }
-        else { haptic([50,30,50,30,50]); DOM.lockPwInput.value = ''; DOM.lockPwInput.style.borderColor = '#ff3b30'; setTimeout(function(){ DOM.lockPwInput.style.borderColor = ''; }, 800); }
+        if(state.lockoutUntil && Date.now() < state.lockoutUntil) return;
+        if(pw === state.lockPassword){ state.pinAttempts=0; haptic([10,30,10]); unlockScreen(); }
+        else {
+            state.pinAttempts=(state.pinAttempts||0)+1;
+            if(state.pinAttempts>=6){ startLockout(60); return; }
+            haptic([50,30,50,30,50]); DOM.lockPwInput.value=''; DOM.lockPwInput.style.borderColor='#ff3b30';
+            if(DOM.lockPwTitle) DOM.lockPwTitle.textContent='Incorrect · '+(6-state.pinAttempts)+' left';
+            setTimeout(function(){ DOM.lockPwInput.style.borderColor=''; if(DOM.lockPwTitle) DOM.lockPwTitle.textContent='Enter Password'; },900);
+        }
     }
     function unlockScreen(){
         playLockSound();
+        var _pOnly=DOM.lockScreen.classList.contains('pin-only-mode');
+        if(_pOnly){ DOM.lockScreen.style.transition='opacity .45s ease'; DOM.lockScreen.style.opacity='0'; }
+        DOM.lockScreen.classList.remove('pin-only-mode'); if(DOM.lockPinCancel) DOM.lockPinCancel.textContent='Cancel';
         state.currentScreen='home';
         DOM.homeScreen.classList.add('active');
         DOM.homeScreen.classList.remove('hidden-left','hidden-right');
@@ -2218,8 +2366,9 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
         if(DOM.lockPwInput) DOM.lockPwInput.value = '';
         var apps = $$('.home-app');
         for(var i=0;i<apps.length;i++){ apps[i].style.animation = 'none'; void apps[i].offsetWidth; apps[i].style.animation = 'iconDropIn 0.5s cubic-bezier(.34,1.4,.64,1) '+(i*0.02)+'s backwards'; }
-        setTimeout(function(){ DOM.lockScreen.style.display = 'none'; }, 700);
+        setTimeout(function(){ DOM.lockScreen.style.display='none'; DOM.lockScreen.style.transition=''; DOM.lockScreen.style.opacity=''; }, 700);
         deactivateAOD();
+        if(state._resumeAfterUnlock){ var _r=state._resumeAfterUnlock; state._resumeAfterUnlock=null; setTimeout(function(){ try{ showScreen(_r,'forward'); }catch(e){} },450); }
         var pendingApp = state.pendingShortcutApp;
         if(pendingApp){
             state.pendingShortcutApp = null;
@@ -2236,10 +2385,12 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
     }
     function activateAOD(){ if(state.aodActive) return; state.aodActive = true; DOM.aodScreen.classList.add('active'); haptic(15); }
     function deactivateAOD(){ if(!state.aodActive) return; state.aodActive = false; DOM.aodScreen.classList.remove('active'); }
-    function aodToLockScreen(){ deactivateAOD(); DOM.lockScreen.style.display = 'flex'; DOM.lockScreen.classList.remove('unlocked','pin-mode','pw-mode'); state.currentPinInput = ''; haptic(15); }
+    function aodToLockScreen(){
+        deactivateAOD(); DOM.lockScreen.style.display='flex'; DOM.lockScreen.classList.remove('unlocked','pin-mode','pw-mode'); state.currentPinInput=''; haptic(15);
+    }
     function initAOD(){
-        DOM.aodScreen.addEventListener('touchstart', function(){ aodToLockScreen(); }, {passive:true}); var lastTap = 0;
-        DOM.aodScreen.addEventListener('click', function(){ aodToLockScreen(); });
+        var lastTap = 0;
+        DOM.aodScreen.addEventListener('click', function(){ var now=Date.now(); if(now-(state._aodTap||0)<350){ state._aodTap=0; aodToLockScreen(); } else state._aodTap=now; });
     }
     function openClockEdit(){
         if(!DOM.lockClockEdit) return;
@@ -3504,7 +3655,7 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
     }
     function initScreenNavigation(){
         var gs=$('#get-started-btn');
-        if(gs)gs.addEventListener('click',function(){haptic(15);showScreen('terms','forward');});
+        if(gs)gs.addEventListener('click',function(){haptic(15); showScreen('terms','forward');});
         var tb=$('#terms-back-btn');
         if(tb)tb.addEventListener('click',function(){ haptic(15); $('#welcome-text-wrap').classList.add('shown'); $('#get-started-wrap').classList.add('shown'); $('#welcome-line-1').classList.remove('first-time'); $('#welcome-line-2').classList.remove('first-time'); $('#get-started-btn').classList.remove('first-time'); showScreen('welcome','backward'); });
         var tn=$('#terms-next-btn');
@@ -4177,7 +4328,7 @@ canvas,.slider-track,.photo-editor-slider-track,.camera-zoom-track,.videoplayer-
 
     var telzonBaseShowScreen=showScreen;
     var telzonBaseInitScreenNavigation=initScreenNavigation;
-    function initScreenNavigation(){var gs=$('#get-started-btn');if(gs)gs.addEventListener('click',function(){haptic(15);showScreen('terms','forward');});var back=$('#terms-back-btn');if(back)back.addEventListener('click',function(){haptic(15);$('#welcome-text-wrap').classList.add('shown');$('#get-started-wrap').classList.add('shown');$('#welcome-line-1').classList.remove('first-time');$('#welcome-line-2').classList.remove('first-time');$('#get-started-btn').classList.remove('first-time');showScreen('welcome','backward');});var next=$('#terms-next-btn');if(next)next.addEventListener('click',function(e){e.preventDefault();haptic(15);showScreen('intro','forward');});}
+    function initScreenNavigation(){var gs=$('#get-started-btn');if(gs)gs.addEventListener('click',function(){haptic(15); showScreen('terms','forward');});var back=$('#terms-back-btn');if(back)back.addEventListener('click',function(){haptic(15);$('#welcome-text-wrap').classList.add('shown');$('#get-started-wrap').classList.add('shown');$('#welcome-line-1').classList.remove('first-time');$('#welcome-line-2').classList.remove('first-time');$('#get-started-btn').classList.remove('first-time');showScreen('welcome','backward');});var next=$('#terms-next-btn');if(next)next.addEventListener('click',function(e){e.preventDefault();haptic(15);showScreen('intro','forward');});}
 
 
 /* ===== Update pack: media, navigation, camera, settings and voice ===== */
@@ -4307,7 +4458,10 @@ function initIntro(){
     var pv=document.getElementById('intro-prev'), nx=document.getElementById('intro-next'), ok=document.getElementById('intro-ok-btn');
     if(pv) pv.addEventListener('click',function(){ if(introIdx>0){ introIdx--; haptic(8); renderIntro(); } });
     if(nx) nx.addEventListener('click',function(){ if(introIdx<INTRO_SLIDES.length-1){ introIdx++; haptic(8); renderIntro(); } });
-    if(ok) ok.addEventListener('click',function(){ haptic(15); showScreen('home','forward'); try{ updateOrbVisibility(); }catch(e){} });
+    if(ok) ok.addEventListener('click',function(){ haptic(15);
+            if(state.lockEnabled){ lockScreenFunc(); DOM.lockScreen.classList.add('pin-only-mode'); showPinEntry(); if(DOM.lockPinCancel) DOM.lockPinCancel.textContent='‹ Back to Tour'; state._resumeAfterUnlock='home'; state.currentScreen='lock'; DOM.introScreen.classList.add('hidden-left'); DOM.introScreen.classList.remove('active','blur-in'); DOM.lockScreen.style.opacity=''; DOM.lockScreen.style.transition=''; try{ window.__TZP._pinTapAt=0; }catch(e){} }
+            else { showScreen('home','forward'); }
+            try{ updateOrbVisibility(); }catch(e){} });
     var sw=document.getElementById('intro-slide'); var sx=0;
     if(sw){ sw.addEventListener('touchstart',function(e){ sx=e.touches[0].clientX; },{passive:true});
         sw.addEventListener('touchend',function(e){ var dx=e.changedTouches[0].clientX-sx; if(dx<-45&&introIdx<INTRO_SLIDES.length-1){ introIdx++; haptic(8); renderIntro(); } else if(dx>45&&introIdx>0){ introIdx--; haptic(8); renderIntro(); } },{passive:true}); }
@@ -4349,9 +4503,785 @@ initIntro();
     ensure(document.querySelector('#lock-status-bar .status-right'));
   });
   once('marker',function(){
-    console.log('%c[TelzonOS] BUILD v5 · 2026-10-21','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
-    setTimeout(function(){ try{ showToast('TelzonOS · Build v5','Loaded OK · 2026-10-21','🚀'); }catch(e){} }, 9800);
+    console.log('%c[TelzonOS] BUILD v6 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+    setTimeout(function(){ try{ showToast('TelzonOS · Build v6','Loaded OK · 2026-10-22','🔒'); }catch(e){} }, 9800);
   });
+})();
+
+
+/* ===== TELZON BUILD v6 — health watchdog ===== */
+(function(){
+  var T6=window.__TZP=window.__TZP||{};
+  if(T6.v6) return; T6.v6=1;
+  ['pointerup','pointercancel','touchcancel'].forEach(function(t){
+    document.addEventListener(t, function(){ setTimeout(function(){ window.__tzSwipe=false; },120); }, {passive:true});
+  });
+  document.addEventListener('touchend', function(e){
+    var key=e.target.closest&&e.target.closest('.lock-pin-key[data-key]');
+    if(!key) return;
+    var ls=document.getElementById('lock-screen');
+    if(ls && ls.classList.contains('lockout-mode')) return;
+    T6._pinTapAt=Date.now(); T6._syn=true;
+    try{ key.click(); }catch(err){}
+    T6._syn=false;
+  }, {passive:true});
+  document.addEventListener('click', function(e){
+    if(T6._syn) return;
+    if(!T6._pinTapAt || Date.now()-T6._pinTapAt>350) return;
+    var k2=e.target.closest&&e.target.closest('.lock-pin-key');
+    if(k2){ e.stopImmediatePropagation(); e.preventDefault(); }
+  }, true);
+  function ensureBars(){
+    ['#terms-status-bar','#lock-status-bar'].forEach(function(sel){
+      var bar=document.querySelector(sel); if(!bar) return;
+      var right=bar.querySelector('.status-right'); if(!right) return;
+      var sb=right.querySelector('.signal-bars');
+      if(!sb){ sb=document.createElement('div'); sb.className='signal-bars'; right.insertBefore(sb,right.firstChild); }
+      if(!sb.querySelector('.signal-bar')){ sb.innerHTML='<div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div>'; }
+      bar.style.setProperty('display','flex','important');
+      bar.style.setProperty('opacity','1','important');
+      bar.style.setProperty('visibility','visible','important');
+    });
+  }
+  ensureBars(); setInterval(ensureBars,3000);
+  setInterval(function(){
+    try{
+      var aw=DOM.appWindow;
+      var appOpening=aw.classList.contains('open')||aw.classList.contains('opening');
+      if(state.currentOpenApp && !appOpening){ state.currentOpenApp=null; state.currentAppIcon=null; }
+      if(state.isAppAnimating && !appOpening){ state._ht=(state._ht||0)+1; if(state._ht>3){ state.isAppAnimating=false; state._ht=0; } } else state._ht=0;
+      if(DOM.homeScreen.classList.contains('app-transitioning') && !appOpening && !state.currentOpenApp && DOM.lockScreen.classList.contains('unlocked')){
+        DOM.homeScreen.classList.remove('app-transitioning','app-returning');
+        DOM.homeScreen.classList.add('active');
+        DOM.homeScreen.classList.remove('hidden-left','hidden-right');
+        if(state.currentScreen==='app') state.currentScreen='home';
+      }
+      var ls=DOM.lockScreen; if(ls && ls.style.display!=='none' && ls.classList.contains('unlocked')) ls.classList.remove('unlocked');
+    }catch(e){}
+  },2000);
+  ['pointerdown','touchstart'].forEach(function(t){ document.addEventListener(t,function(){ state._ptrDown=true; setTimeout(function(){ state._ptrDown=false; },1500); },{passive:true}); });
+  
+})();
+
+
+/* ================= TELZON BUILD v7 ================= */
+(function(){
+  var T7=window.__TZP=window.__TZP||{}; if(T7.v7) return; T7.v7=1;
+  function esc(x){ return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* ---------- 1. SMOOTHNESS (Settings → Display) ---------- */
+  state.smoothMode = storageGet('telzon_smooth','auto');
+  function applySmoothness(){
+    var r = state.refreshRate || 'auto';
+    var m;
+    if(r==='auto'){ var c=navigator.hardwareConcurrency||4, mm=navigator.deviceMemory||4; m=(c>=6&&mm>=4)?'ultra':'save'; }
+    else if(r==='60') m='save';
+    else if(r==='90') m='mid';
+    else m='ultra';
+    state._effSmooth = m;
+    document.body.classList.toggle('tz-save', m==='save');
+    document.body.classList.toggle('tz-ultra', m==='ultra');
+    var el=document.getElementById('smoothness-status');
+    if(el) el.textContent = (r==='auto')?'Auto adapt':(r+' Hz');
+    var el2=document.getElementById('parallax-status');
+    if(el2) el2.textContent = (m==='save')?'Off (60 Hz / power)':((state.parallaxOn!==false)?'On':'Off');
+    storageSet('telzon_refresh', r);
+  }
+  state.refreshRate = storageGet('telzon_refresh','auto');
+  window.applySmoothness = applySmoothness;
+
+  /* ---------- 2. PARALLAX WALLPAPER ---------- */
+  (function(){
+    var tx=0,ty=0,cx=0,cy=0;
+    window.addEventListener('deviceorientation',function(e){ if(e.gamma==null) return; tx=Math.max(-1,Math.min(1,e.gamma/25)); ty=Math.max(-1,Math.min(1,((e.beta||45)-45)/25)); },{passive:true});
+    document.addEventListener('pointermove',function(e){ if(state._effSmooth==='save'||state.parallaxOn===false) return; tx=(e.clientX/window.innerWidth-0.5)*2; ty=(e.clientY/window.innerHeight-0.5)*2; },{passive:true});
+    (function loop(){
+      cx+=(tx-cx)*0.06; cy+=(ty-cy)*0.06;
+      var px=(-cx*12).toFixed(1)+'px', py=(-cy*12).toFixed(1)+'px';
+      var hs=document.getElementById('home-screen'); if(hs) hs.style.setProperty('--tzpx',px), hs.style.setProperty('--tzpy',py);
+      var lb=document.getElementById('lock-screen-bg'); if(lb) lb.style.transform='translate('+px+','+py+') scale(1.14)';
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  /* ---------- 3. ACCOUNT (Google sign-in, local) ---------- */
+  state.account = storageGet('telzon_account', null);
+  window.isTzLoggedIn = function(){ return !!state.account; };
+  window.tzSignOut = function(){ state.account=null; storageSet('telzon_account',null); showToast('Account','Signed out','👋'); try{ refreshAccountUI(); }catch(e){} };
+  window.refreshAccountUI = function(){
+    try{
+      var acc=state.account;
+      var av=document.querySelector('.settings-account-avatar'); if(av) av.textContent = acc? esc(acc.name).charAt(0).toUpperCase() : '👤';
+      var nm=document.querySelector('.settings-account-name'); if(nm) nm.textContent = acc? acc.name : 'Telzon Account';
+      var sb2=document.querySelector('.settings-account-sub'); if(sb2) sb2.textContent = acc? acc.email : 'Create Your Account for Using Other TStore Apps';
+    }catch(e){}
+  };
+  window.tzGoogleSheet = function(){
+    var sh=document.getElementById('tz-google-sheet');
+    if(sh){ sh.classList.add('active'); return; }
+    sh=document.createElement('div'); sh.className='tz-sheet'; sh.id='tz-google-sheet';
+    sh.innerHTML='<div class="tz-sheet-box"><div class="tz-google-logo">G</div><div class="tz-sheet-title">Sign in with Google</div><div class="tz-sheet-sub">Use your Google account to upload photos & videos, and use TStore apps.</div><input class="tz-sheet-input" id="tz-g-name" placeholder="Your name"><input class="tz-sheet-input" id="tz-g-email" placeholder="you@gmail.com"><button class="tz-sheet-btn google" id="tz-g-continue">Continue</button><button class="tz-sheet-btn plain" id="tz-g-cancel">Cancel</button></div>';
+    document.body.appendChild(sh);
+    requestAnimationFrame(function(){ sh.classList.add('active'); });
+    document.getElementById('tz-g-cancel').onclick=function(){ sh.classList.remove('active'); };
+    document.getElementById('tz-g-continue').onclick=function(){
+      var n=document.getElementById('tz-g-name').value.trim()||'Telzon User';
+      var e2=document.getElementById('tz-g-email').value.trim()||'user@gmail.com';
+      state.account={name:n,email:e2}; storageSet('telzon_account',state.account);
+      sh.classList.remove('active'); haptic([15,30,15]);
+      showToast('Google','Welcome, '+n.split(' ')[0]+' ✓','👋');
+      refreshAccountUI();
+      try{ var pg=document.getElementById('tz-account-page'); if(pg) pg.remove(); openAccountPage(); }catch(err){}
+    };
+  };
+  window.openAccountPage = function(){
+    try{
+      var pg=document.getElementById('tz-account-page'); if(pg) pg.remove();
+      pg=document.createElement('div'); pg.className='settings-subpage'; pg.id='tz-account-page';
+      var acc=state.account;
+      pg.innerHTML='<div class="settings-subpage-header"><div class="settings-back-btn" id="tz-acct-back">‹</div><div class="settings-subpage-title">Telzon Account</div></div>'+
+        (acc?
+          '<div style="padding:20px 18px"><div class="tz-acct-card"><div class="tz-acct-av">'+esc(acc.name).charAt(0).toUpperCase()+'</div><div><div style="font-size:17px;font-weight:600;color:#fff">'+esc(acc.name)+'</div><div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:3px">'+esc(acc.email)+'</div><div style="font-size:10px;color:#4ade80;margin-top:6px;font-weight:600">● Signed in with Google</div></div></div>'+
+          '<button class="tz-sheet-btn plain" id="tz-signout" style="background:rgba(239,68,68,.18);border:1px solid rgba(239,68,68,.4);color:#f87171">Sign out</button></div>'
+        :
+          '<div style="padding:26px 18px;text-align:center"><div class="tz-google-logo" style="margin-bottom:16px">G</div><div style="font-size:17px;font-weight:600;color:#fff;margin-bottom:8px">Create your account</div><div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:20px">Sign in with Google to upload photos & videos publicly and use other TStore apps.</div><button class="tz-sheet-btn google" id="tz-google-btn">Continue with Google</button></div>');
+      document.getElementById('app-window-content').appendChild(pg);
+      setTimeout(function(){ pg.classList.add('active'); },50);
+      document.getElementById('tz-acct-back').onclick=function(){ pg.classList.remove('active'); setTimeout(function(){ pg.remove(); },400); };
+      var g=document.getElementById('tz-google-btn'); if(g) g.onclick=function(){ tzGoogleSheet(); };
+      var so=document.getElementById('tz-signout'); if(so) so.onclick=function(){ tzSignOut(); pg.remove(); openAccountPage(); };
+    }catch(e){ console.error(e); }
+  };
+  window.tzRequireAccount = function(){
+    if(state.account) return true;
+    showToast('Sign in required','Continue with Google to upload','🔑');
+    try{ openAccountPage(); }catch(e){}
+    return false;
+  };
+
+  /* ---------- 4. UPLOADS (Photos & VideoPlayer) ---------- */
+  window.tzUploadFlow = function(kind){ /* 'photo' | 'video' */
+    if(!tzRequireAccount()) return;
+    var sh=document.getElementById('tz-vis-sheet');
+    if(sh){ sh.classList.add('active'); sh.setAttribute('data-kind',kind); return; }
+    sh=document.createElement('div'); sh.className='tz-sheet'; sh.id='tz-vis-sheet';
+    sh.innerHTML='<div class="tz-sheet-box"><div class="tz-sheet-title">Upload '+(kind==='photo'?'Photo':'Video')+'</div><div class="tz-sheet-sub">Who can see this?</div>'+
+      '<button class="tz-vis-btn" data-vis="public"><span class="vi">🌍</span><span class="vt"><b>Public</b><span>Everyone using this TelzonOS can see it</span></span></button>'+
+      '<button class="tz-vis-btn" data-vis="private"><span class="vi">🔒</span><span class="vt"><b>Only me</b><span>Visible only on your account</span></span></button>'+
+      '<button class="tz-sheet-btn plain" id="tz-vis-cancel">Cancel</button></div>';
+    document.body.appendChild(sh);
+    sh.setAttribute('data-kind',kind);
+    requestAnimationFrame(function(){ sh.classList.add('active'); });
+    document.getElementById('tz-vis-cancel').onclick=function(){ sh.classList.remove('active'); };
+    var btns=sh.querySelectorAll('.tz-vis-btn');
+    for(var b=0;b<btns.length;b++){ (function(btn){ btn.onclick=function(){
+      var vis=btn.getAttribute('data-vis'); var k=sh.getAttribute('data-kind')||kind;
+      sh.classList.remove('active');
+      var input=document.createElement('input'); input.type='file'; input.multiple=true;
+      input.accept = k==='photo'?'image/*':'video/*';
+      input.onchange=function(ev){
+        var files=ev.target.files; if(!files||!files.length) return;
+        var done=0, saved=0;
+        for(var f=0;f<files.length;f++){ (function(file){
+          if(file.size>3*1024*1024){ showToast('Upload skipped',file.name+' is over 3MB','⚠️'); if(++done===files.length) finish(); return; }
+          var r=new FileReader();
+          r.onload=function(e){
+            var store = k==='photo' ? storageGet('tz_photo_uploads',[]) : storageGet('tz_video_uploads',[]);
+            store.push({id:'up_'+Date.now()+'_'+f, name:file.name, url:e.target.result, vis:vis, date:Date.now(), owner:state.account?state.account.email:'me'});
+            try{ storageSet(k==='photo'?'tz_photo_uploads':'tz_video_uploads', store); }catch(err){ showToast('Storage full','Could not save '+file.name,'⚠️'); }
+            saved++;
+            if(++done===files.length) finish();
+          };
+          r.onerror=function(){ if(++done===files.length) finish(); };
+          r.readAsDataURL(file);
+        })(files[f]); }
+        function finish(){
+          haptic([15,30,15]);
+          showToast('Upload complete', saved+' file(s) · '+(vis==='public'?'🌍 Public':'🔒 Only me'),'⬆️');
+          try{ if(k==='photo') renderPhotosGrid(); else renderVideoUploads(); }catch(e){}
+        }
+      };
+      input.click();
+    }; })(btns[b]); }
+  };
+  window.renderPhotoUploads = function(){
+    var grid=document.getElementById('photos-grid'); if(!grid) return;
+    var ups=storageGet('tz_photo_uploads',[]);
+    if(!ups.length){ grid.innerHTML='<div class="photos-permission" style="grid-column:1/-1"><div style="font-size:52px;opacity:.4;margin-bottom:14px">⬆️</div><div style="font-size:15px;font-weight:500;color:#fff;margin-bottom:6px">No uploads yet</div><div style="font-size:12.5px;margin-bottom:18px">Tap 📷 to upload — choose Public or Only me</div></div>'; return; }
+    var html='';
+    for(var i=ups.length-1;i>=0;i--){ var u=ups[i];
+      html+='<div class="photo-thumb tz-upload-tile" data-upid="'+u.id+'"><span class="tz-badge'+(u.vis==='private'?' priv':'')+'">'+(u.vis==='public'?'🌍 Public':'🔒 Only me')+'</span><img src="'+u.url+'" alt=""></div>'; }
+    grid.innerHTML=html;
+    var tiles=grid.querySelectorAll('.tz-upload-tile');
+    for(var t=0;t<tiles.length;t++){ (function(el){ el.addEventListener('click',function(){
+      var id=el.getAttribute('data-upid'); var up=null; for(var x=0;x<ups.length;x++) if(ups[x].id===id) up=ups[x];
+      if(!up) return;
+      try{ DOM.photoViewerImg.src=up.url; DOM.photoViewer.classList.add('active'); state.currentPhotoIdx=-1; }catch(e){}
+    }); })(tiles[t]); }
+  };
+  window.renderVideoUploads = function(){
+    var box=document.getElementById('vp-uploads'); if(!box) return;
+    var ups=storageGet('tz_video_uploads',[]);
+    var html='<div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase;margin:6px 0 10px">My Uploads</div>';
+    if(!ups.length) html+='<div style="font-size:12px;color:rgba(255,255,255,.4);padding:8px 0 14px">No uploads yet — tap ➕ to upload a video (Public / Only me)</div>';
+    for(var i=ups.length-1;i>=0;i--){ var u=ups[i];
+      html+='<div class="vp-upload-tile" data-vid="'+u.id+'"><span class="vi">🎬</span><span class="vt">'+esc(u.name)+'</span><span class="tz-badge'+(u.vis==='private'?' priv':'')+'" style="position:static">'+((u.vis==='public')?'🌍 Public':'🔒 Only me')+'</span></div>'; }
+    box.innerHTML=html;
+    var tiles=box.querySelectorAll('.vp-upload-tile');
+    for(var t=0;t<tiles.length;t++){ (function(el){ el.addEventListener('click',function(){
+      var id=el.getAttribute('data-vid'); var up=null; var all=storageGet('tz_video_uploads',[]);
+      for(var x=0;x<all.length;x++) if(all[x].id===id) up=all[x]; if(!up) return;
+      var v=document.getElementById('videoplayer-video'); if(!v) return;
+      v.src=up.url; v.play().catch(function(){});
+      var ov=document.querySelector('.videoplayer-overlay'); if(ov) ov.classList.add('visible');
+    }); })(tiles[t]); }
+  };
+
+  /* uploads: replace add buttons + tabs */
+  var _gph=getPhotosHTML;
+  getPhotosHTML=function(){ return _gph().replace('<div class="photos-grid" id="photos-grid">','<div class="photos-filters" style="padding:2px 8px 10px"><div class="photos-filter active" data-pfilter="library">Library</div><div class="photos-filter" data-pfilter="uploads">Uploads</div></div><div class="photos-grid" id="photos-grid">'); };
+  var _rpg=renderPhotosGrid;
+  renderPhotosGrid=function(){ if((state.photoFilter||'library')==='uploads'){ renderPhotoUploads(); return; } _rpg(); };
+  document.addEventListener('click',function(e){
+    var f=e.target.closest&&e.target.closest('[data-pfilter]');
+    if(f){ state.photoFilter=f.getAttribute('data-pfilter');
+      var all=f.parentNode.querySelectorAll('[data-pfilter]');
+      for(var i=0;i<all.length;i++) all[i].classList.toggle('active',all[i]===f);
+      haptic(8); try{ renderPhotosGrid(); }catch(err){} return; }
+    var ab=e.target.closest&&e.target.closest('#photos-add-btn');
+    if(ab && state.currentOpenApp && state.currentOpenApp.name==='Photos'){ e.stopImmediatePropagation(); e.preventDefault(); tzUploadFlow('photo'); return; }
+    var vb=e.target.closest&&e.target.closest('#videoplayer-add');
+    if(vb && state.currentOpenApp && state.currentOpenApp.name==='VideoPlayer'){ e.stopImmediatePropagation(); e.preventDefault(); tzUploadFlow('video'); return; }
+  }, true);
+  var _gvp=getVideoPlayerHTML;
+  getVideoPlayerHTML=function(){ return _gvp()+'<div id="vp-uploads" style="padding:6px 18px 130px"></div>'; };
+  var _ivp=initVideoPlayer;
+  initVideoPlayer=function(){ _ivp(); setTimeout(function(){ try{ renderVideoUploads(); }catch(e){} },400); };
+
+  /* ---------- 5. SETTINGS: Display rows + account row ---------- */
+  var _gsh=getSettingsHTML;
+  getSettingsHTML=function(){
+    var h=_gsh();
+    h=h.replace('<div class="settings-account" data-settings="account"><div class="settings-account-avatar">👤</div><div class="settings-account-info"><div class="settings-account-name">Telzon Account</div><div class="settings-account-sub">Local User · Daham Randunu</div></div><div style="color:rgba(255,255,255,.4);font-size:22px">›</div></div>',
+      '<div class="settings-account" data-settings="account"><div class="settings-account-avatar">'+(state.account?esc(state.account.name).charAt(0).toUpperCase():'👤')+'</div><div class="settings-account-info"><div class="settings-account-name">'+(state.account?esc(state.account.name):'Telzon Account')+'</div><div class="settings-account-sub">'+(state.account?esc(state.account.email):'Create Your Account for Using Other TStore Apps')+'</div></div><div style="color:rgba(255,255,255,.4);font-size:22px">›</div></div>');
+    h=h.replace('<div class="settings-section-title">Battery</div>',
+      '<div class="settings-item" data-settings="refreshrate"><div class="settings-item-icon cyan">💫</div><div class="settings-item-text"><div class="settings-item-title">Refresh rate</div><div class="settings-item-sub" id="smoothness-status">Auto adapt</div></div><span class="settings-item-arrow">›</span></div>'+
+      '<div class="settings-item" data-settings="parallax"><div class="settings-item-icon purple">🌊</div><div class="settings-item-text"><div class="settings-item-title">Parallax Wallpaper</div><div class="settings-item-sub" id="parallax-status">On</div></div><div class="settings-toggle'+((state.parallaxOn!==false)?' on':'')+'" id="parallax-toggle"></div></div>'+
+      '<div class="settings-section-title">Battery</div>');
+    return h;
+  };
+  var _hsc=handleSettingClick;
+  handleSettingClick=function(t){
+    if(t==='account'){ openAccountPage(); return; }
+    if(t==='refreshrate'){ openRefreshRatePage(); return; }
+    _hsc(t);
+  };
+  document.addEventListener('click',function(e){
+    var pt=e.target.closest&&e.target.closest('#parallax-toggle');
+    if(pt){ state.parallaxOn=!(state.parallaxOn!==false); pt.classList.toggle('on',state.parallaxOn); applySmoothness(); haptic(10); showToast('Parallax Wallpaper', state.parallaxOn?'On':'Off','🌊'); }
+  }, true);
+
+  /* ---------- 6. LOCK SCREEN long-press empty area → customize ---------- */
+  (function(){
+    var t=null,x=0,y=0;
+    function ok(e){
+      var ls=DOM.lockScreen;
+      if(ls.classList.contains('unlocked')) return false;
+      if(ls.classList.contains('pin-mode')||ls.classList.contains('pw-mode')||ls.classList.contains('lockout-mode')) return false;
+      if(e.target.closest('.lock-shortcut-btn')||e.target.closest('.lock-pin-pad')||e.target.closest('.lock-notif-item')||e.target.closest('.lockout-screen')||e.target.closest('.lock-status-bar')||e.target.closest('.lock-bottom')) return false;
+      return true;
+    }
+    document.addEventListener('pointerdown',function(e){
+      if(!e.target.closest || !e.target.closest('#lock-screen')) return;
+      if(!ok(e)) return;
+      x=e.clientX; y=e.clientY;
+      t=setTimeout(function(){ t=null; try{ DOM.lockTime.setAttribute('data-editing','true'); openClockEdit(); haptic(15); }catch(err){ console.error(err); } },600);
+    },{passive:true});
+    document.addEventListener('pointermove',function(e){ if(!t) return; if(Math.hypot(e.clientX-x,e.clientY-y)>12){ clearTimeout(t); t=null; } },{passive:true});
+    ['pointerup','pointercancel'].forEach(function(ev){ document.addEventListener(ev,function(){ if(t){ clearTimeout(t); t=null; } },{passive:true}); });
+  })();
+
+  /* ---------- init ---------- */
+  applySmoothness();
+  setTimeout(refreshAccountUI, 1500);
+  console.log('%c[TelzonOS] BUILD v14 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v14','Loaded OK · 2026-10-22','✨'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v8 — Firebase + Refresh rate ================= */
+(function(){
+  var T8=window.__TZP=window.__TZP||{}; if(T8.v8) return; T8.v8=1;
+
+  /* ---------- Refresh rate page ---------- */
+  window.openRefreshRatePage = function(){
+    try{
+      var pg=document.getElementById('tz-refresh-page'); if(pg) pg.remove();
+      pg=document.createElement('div'); pg.className='settings-subpage'; pg.id='tz-refresh-page';
+      var opts=[['auto','Auto adapt','Matches your device automatically'],['60','60 Hz','Best battery life'],['90','90 Hz','Balanced smoothness'],['120','120 Hz','Ultra smooth animations'],['144','144 Hz','Maximum fluidity']];
+      var rows='';
+      for(var i=0;i<opts.length;i++){ rows+='<div class="lock-type-option" data-rr="'+opts[i][0]+'"><div class="lock-type-radio'+((state.refreshRate||'auto')===opts[i][0]?' selected':'')+'"></div><div class="lock-type-text"><div class="lock-type-title">'+opts[i][1]+'</div><div class="lock-type-sub">'+opts[i][2]+'</div></div></div>'; }
+      pg.innerHTML='<div class="settings-subpage-header"><div class="settings-back-btn" id="tz-rr-back">‹</div><div class="settings-subpage-title">Refresh rate</div></div><div class="settings-list" style="margin:16px 18px">'+rows+'</div>';
+      document.getElementById('app-window-content').appendChild(pg);
+      setTimeout(function(){ pg.classList.add('active'); },50);
+      document.getElementById('tz-rr-back').onclick=function(){ pg.classList.remove('active'); setTimeout(function(){ pg.remove(); },400); };
+      var ros=pg.querySelectorAll('[data-rr]');
+      for(var k=0;k<ros.length;k++){ (function(el){ el.onclick=function(){
+        state.refreshRate=el.getAttribute('data-rr'); storageSet('telzon_refresh',state.refreshRate);
+        try{ applySmoothness(); }catch(e){}
+        haptic(10);
+        var rs=el.parentNode.querySelectorAll('.lock-type-radio'); for(var j=0;j<rs.length;j++) rs[j].classList.remove('selected');
+        el.querySelector('.lock-type-radio').classList.add('selected');
+        showToast('Refresh rate', (state.refreshRate==='auto'?'Auto adapt':state.refreshRate+' Hz'), '💫');
+      }; })(ros[k]); }
+    }catch(e){ console.error(e); }
+  };
+
+  /* ---------- Firebase (dynamic load) ---------- */
+  window.tzFbConf = function(){ return storageGet('telzon_firebase_conf', null); };
+  window.tzLoadFirebase = function(cb){
+    if(window.firebase && firebase.apps && firebase.apps.length){ state._fbReady=true; cb(null); return; }
+    if(state._fbLoading){ setTimeout(function(){ tzLoadFirebase(cb); },400); return; }
+    var conf=tzFbConf();
+    if(!conf || !conf.apiKey){ cb(new Error('no-config')); return; }
+    state._fbLoading=true;
+    var urls=['https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js','https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js','https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js'];
+    var i=0;
+    (function next(){
+      if(i>=urls.length){
+        state._fbLoading=false;
+        try{ if(!firebase.apps.length) firebase.initializeApp(conf); state._fbReady=true; cb(null); }
+        catch(e){ state._fbReady=false; cb(e); }
+        return;
+      }
+      var sc=document.createElement('script'); sc.src=urls[i++]; sc.onload=next;
+      sc.onerror=function(){ state._fbLoading=false; cb(new Error('load-fail')); };
+      document.head.appendChild(sc);
+    })();
+  };
+  window.tzCloudReady = function(){ return !!(state._fbReady && state.account && state.account.uid); };
+  window.tzCloudSave = function(kind, rec, done){
+    if(!tzCloudReady()){ if(done) done(false); return; }
+    try{
+      var pub= kind==='photo'?'tz_public_photos':'tz_public_videos';
+      var prv= kind==='photo'?'tz_private_photos':'tz_private_videos';
+      firebase.firestore().collection(rec.vis==='public'?pub:prv)
+        .add({name:rec.name, url:rec.url, vis:rec.vis, owner:state.account.email, uid:state.account.uid, date:Date.now()})
+        .then(function(){ if(done) done(true); }).catch(function(){ if(done) done(false); });
+    }catch(e){ if(done) done(false); }
+  };
+  window.tzCloudLoad = function(kind, done){
+    if(!tzCloudReady()){ done([]); return; }
+    try{
+      var pub= kind==='photo'?'tz_public_photos':'tz_public_videos';
+      var prv= kind==='photo'?'tz_private_photos':'tz_private_videos';
+      var out=[];
+      firebase.firestore().collection(pub).get().then(function(sn){
+        sn.forEach(function(d){ var v=d.data(); v._cloud=true; out.push(v); });
+        firebase.firestore().collection(prv).where('uid','==',state.account.uid).get().then(function(sn2){
+          sn2.forEach(function(d){ var v=d.data(); v._cloud=true; out.push(v); });
+          done(out);
+        }).catch(function(){ done(out); });
+      }).catch(function(){ done([]); });
+    }catch(e){ done([]); }
+  };
+  window.tzGoogleReal = function(){
+    showToast('Google','Connecting…','⏳');
+    tzLoadFirebase(function(err){
+      if(err){ tzGoogleSheet(); return; }
+      try{
+        var provider=new firebase.auth.GoogleAuthProvider();
+        firebase.auth().signInWithPopup(provider).then(function(res){
+          var u=res.user;
+          state.account={name:u.displayName||'Google User', email:u.email||'', photo:u.photoURL||'', uid:u.uid, real:true};
+          storageSet('telzon_account',state.account);
+          haptic([15,30,15]);
+          showToast('Google','Welcome, '+state.account.name.split(' ')[0]+' ✓','👋');
+          try{ refreshAccountUI(); }catch(e){}
+          var pg=document.getElementById('tz-account-page'); if(pg) pg.remove();
+          openAccountPage();
+        }).catch(function(e){
+          if(e && e.code==='auth/popup-closed-by-user') return;
+          showToast('Google sign-in',(e&&e.message)||'Failed — check Firebase Auth (Google) is enabled','⚠️');
+        });
+      }catch(e){ tzGoogleSheet(); }
+    });
+  };
+
+  /* ---------- Account page (Firebase-aware, overrides v7) ---------- */
+  window.openAccountPage = function(){
+    try{
+      var pg=document.getElementById('tz-account-page'); if(pg) pg.remove();
+      pg=document.createElement('div'); pg.className='settings-subpage'; pg.id='tz-account-page';
+      var acc=state.account, conf=tzFbConf();
+      var body='';
+      if(acc){
+        var av = acc.photo ? '<img src="'+acc.photo+'" style="width:54px;height:54px;border-radius:50%;object-fit:cover">' : esc(acc.name).charAt(0).toUpperCase();
+        body='<div style="padding:20px 18px"><div class="tz-acct-card"><div class="tz-acct-av">'+av+'</div><div><div style="font-size:17px;font-weight:600;color:#fff">'+esc(acc.name)+'</div><div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:3px">'+esc(acc.email)+'</div><div style="font-size:10px;color:#4ade80;margin-top:6px;font-weight:600">● Signed in'+(acc.real?' with Google':' · demo account')+'</div></div></div>'+
+          (acc.real?'':'<button class="tz-sheet-btn google" id="tz-upgrade" style="margin-bottom:10px">Connect real Google account</button>')+
+          '<button class="tz-sheet-btn plain" id="tz-signout" style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);color:#f87171">Sign out</button></div>';
+      } else if(conf){
+        body='<div style="padding:26px 18px;text-align:center"><div class="tz-google-logo" style="margin-bottom:16px">G</div><div style="font-size:17px;font-weight:600;color:#fff;margin-bottom:8px">Create your account</div><div style="font-size:13px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:20px">Sign in with Google to upload photos & videos publicly and use TStore apps.</div><button class="tz-sheet-btn google" id="tz-google-btn">Continue with Google</button><button class="tz-sheet-btn plain" id="tz-demo-btn" style="margin-top:10px">Use demo account</button></div>';
+      } else {
+        body='<div style="padding:26px 18px;text-align:center"><div class="tz-google-logo" style="margin-bottom:16px">G</div><div style="font-size:17px;font-weight:600;color:#fff;margin-bottom:8px">Connect Firebase first</div><div style="font-size:12.5px;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:16px">1. Create a free project at <b>console.firebase.google.com</b><br>2. Add a Web app → copy the config object<br>3. Enable <b>Authentication → Google</b> and <b>Firestore</b><br>4. Paste it below</div><textarea class="tz-sheet-input" id="tz-fb-conf" rows="5" placeholder=\'{"apiKey":"...","authDomain":"...","projectId":"..."}\' style="resize:vertical;font-size:11px"></textarea><button class="tz-sheet-btn google" id="tz-fb-save">Save & Connect</button><button class="tz-sheet-btn plain" id="tz-demo-btn2" style="margin-top:10px">Skip — use demo account</button></div>';
+      }
+      pg.innerHTML='<div class="settings-subpage-header"><div class="settings-back-btn" id="tz-acct-back">‹</div><div class="settings-subpage-title">Telzon Account</div></div>'+body;
+      document.getElementById('app-window-content').appendChild(pg);
+      setTimeout(function(){ pg.classList.add('active'); },50);
+      document.getElementById('tz-acct-back').onclick=function(){ pg.classList.remove('active'); setTimeout(function(){ pg.remove(); },400); };
+      var gb=document.getElementById('tz-google-btn'); if(gb) gb.onclick=function(){ tzGoogleReal(); };
+      var up=document.getElementById('tz-upgrade'); if(up) up.onclick=function(){ tzGoogleReal(); };
+      var fs=document.getElementById('tz-fb-save'); if(fs) fs.onclick=function(){
+        try{
+          var v=document.getElementById('tz-fb-conf').value.trim();
+          var c=JSON.parse(v);
+          if(!c.apiKey || !c.projectId){ showToast('Firebase','Config needs apiKey & projectId','⚠️'); return; }
+          storageSet('telzon_firebase_conf',c);
+          showToast('Firebase','Config saved ✓ — now sign in with Google','☁️');
+          pg.remove(); openAccountPage();
+        }catch(e){ showToast('Firebase','Invalid JSON config','⚠️'); }
+      };
+      var d1=document.getElementById('tz-demo-btn'), d2=document.getElementById('tz-demo-btn2');
+      [d1,d2].forEach(function(b){ if(b) b.onclick=function(){ tzGoogleSheet(); }; });
+      var so=document.getElementById('tz-signout'); if(so) so.onclick=function(){ try{ if(state.account&&state.account.real&&window.firebase&&firebase.auth) firebase.auth().signOut(); }catch(e){} tzSignOut(); pg.remove(); openAccountPage(); };
+    }catch(e){ console.error(e); }
+  };
+
+  /* ---------- Uploads: cloud merge (overrides v7 renders) ---------- */
+  window.renderPhotoUploads = function(){
+    var grid=document.getElementById('photos-grid'); if(!grid) return;
+    var ups=storageGet('tz_photo_uploads',[]).concat(state._cloudPhotos||[]);
+    ups.sort(function(a,b){ return (b.date||0)-(a.date||0); });
+    if(!ups.length){ grid.innerHTML='<div class="photos-permission" style="grid-column:1/-1"><div style="font-size:52px;opacity:.4;margin-bottom:14px">⬆️</div><div style="font-size:15px;font-weight:500;color:#fff;margin-bottom:6px">No uploads yet</div><div style="font-size:12.5px;margin-bottom:18px">Tap 📷 to upload — Public 🌍 or Only me 🔒</div></div>'; return; }
+    var html='';
+    for(var i=0;i<ups.length;i++){ var u=ups[i];
+      html+='<div class="photo-thumb tz-upload-tile" data-upid="'+u.id+'"><span class="tz-badge'+(u.vis==='private'?' priv':'')+'">'+((u.vis==='public'?'🌍 Public':'🔒 Only me'))+(u._cloud?' ☁️':'')+'</span><img src="'+u.url+'" alt=""></div>'; }
+    grid.innerHTML=html;
+    var tiles=grid.querySelectorAll('.tz-upload-tile');
+    for(var t=0;t<tiles.length;t++){ (function(el){ el.addEventListener('click',function(){
+      var id=el.getAttribute('data-upid'); var up=null;
+      for(var x=0;x<ups.length;x++) if(ups[x].id===id) up=ups[x];
+      if(!up) return;
+      try{ DOM.photoViewerImg.src=up.url; DOM.photoViewer.classList.add('active'); state.currentPhotoIdx=-1; DOM.photoDetailsPanel.classList.remove('active'); }catch(e){}
+    }); })(tiles[t]); }
+  };
+  window.renderVideoUploads = function(){
+    var box=document.getElementById('vp-uploads'); if(!box) return;
+    var ups=storageGet('tz_video_uploads',[]).concat(state._cloudVideos||[]);
+    ups.sort(function(a,b){ return (b.date||0)-(a.date||0); });
+    var html='<div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:1px;text-transform:uppercase;margin:6px 0 10px">My Uploads</div>';
+    if(!ups.length) html+='<div style="font-size:12px;color:rgba(255,255,255,.4);padding:8px 0 14px">No uploads yet — tap ➕ (Public / Only me)</div>';
+    for(var i=0;i<ups.length;i++){ var u=ups[i];
+      html+='<div class="vp-upload-tile" data-vid="'+esc(u.name)+'|'+i+'"><span class="vi">🎬</span><span class="vt">'+esc(u.name)+'</span><span class="tz-badge'+(u.vis==='private'?' priv':'')+'" style="position:static">'+((u.vis==='public'?'🌍 Public':'🔒 Only me'))+(u._cloud?' ☁️':'')+'</span></div>'; }
+    box.innerHTML=html;
+    var tiles=box.querySelectorAll('.vp-upload-tile');
+    for(var t=0;t<tiles.length;t++){ (function(el){ el.addEventListener('click',function(){
+      var idx=parseInt(el.getAttribute('data-vid').split('|')[1],10);
+      var up=ups[idx]; if(!up) return;
+      var v=document.getElementById('videoplayer-video'); if(!v) return;
+      v.src=up.url; v.play().catch(function(){});
+      var ov=document.querySelector('.videoplayer-overlay'); if(ov) ov.classList.add('visible');
+    }); })(tiles[t]); }
+  };
+  /* cloud-load on app open */
+  var _iphs2=initPhotos;
+  initPhotos=function(){ _iphs2(); setTimeout(function(){ if(tzCloudReady()) tzCloudLoad('photo',function(list){ state._cloudPhotos=list; if((state.photoFilter||'library')==='uploads'){ try{ renderPhotosGrid(); }catch(e){} } }); },700); };
+  var _ivp2=initVideoPlayer;
+  initVideoPlayer=function(){ _ivp2(); setTimeout(function(){ if(tzCloudReady()) tzCloudLoad('video',function(list){ state._cloudVideos=list; try{ renderVideoUploads(); }catch(e){} }); },700); };
+  /* upload flow → local + cloud sync (full override) */
+  window.tzUploadFlow = function(kind){
+    if(!tzRequireAccount()) return;
+    var sh=document.getElementById('tz-vis-sheet');
+    if(sh){ sh.classList.add('active'); sh.setAttribute('data-kind',kind); return; }
+    sh=document.createElement('div'); sh.className='tz-sheet'; sh.id='tz-vis-sheet';
+    sh.innerHTML='<div class="tz-sheet-box"><div class="tz-sheet-title">Upload '+(kind==='photo'?'Photo':'Video')+'</div><div class="tz-sheet-sub">Who can see this?</div>'+
+      '<button class="tz-vis-btn" data-vis="public"><span class="vi">🌍</span><span class="vt"><b>Public</b><span>Everyone on this TelzonOS can see it</span></span></button>'+
+      '<button class="tz-vis-btn" data-vis="private"><span class="vi">🔒</span><span class="vt"><b>Only me</b><span>Visible only on your account</span></span></button>'+
+      '<button class="tz-sheet-btn plain" id="tz-vis-cancel">Cancel</button></div>';
+    document.body.appendChild(sh);
+    sh.setAttribute('data-kind',kind);
+    requestAnimationFrame(function(){ sh.classList.add('active'); });
+    document.getElementById('tz-vis-cancel').onclick=function(){ sh.classList.remove('active'); };
+    var btns=sh.querySelectorAll('.tz-vis-btn');
+    for(var b=0;b<btns.length;b++){ (function(btn){ btn.onclick=function(){
+      var vis=btn.getAttribute('data-vis'); var k=sh.getAttribute('data-kind')||kind;
+      sh.classList.remove('active');
+      var input=document.createElement('input'); input.type='file'; input.multiple=true;
+      input.accept = k==='photo'?'image/*':'video/*';
+      input.onchange=function(ev){
+        var files=ev.target.files; if(!files||!files.length) return;
+        var done=0, saved=0, synced=0;
+        for(var f=0;f<files.length;f++){ (function(file){
+          if(file.size>3*1024*1024){ showToast('Upload skipped',file.name+' is over 3MB','⚠️'); if(++done===files.length) finish(); return; }
+          var r=new FileReader();
+          r.onload=function(e){
+            var rec={id:'up_'+Date.now()+'_'+f, name:file.name, url:e.target.result, vis:vis, date:Date.now(), owner:(state.account&&state.account.email)||'me'};
+            var store = k==='photo' ? storageGet('tz_photo_uploads',[]) : storageGet('tz_video_uploads',[]);
+            store.push(rec);
+            try{ storageSet(k==='photo'?'tz_photo_uploads':'tz_video_uploads', store); saved++; }catch(err){ showToast('Storage full','Could not save '+file.name,'⚠️'); }
+            tzCloudSave(k, rec, function(ok){ if(ok) synced++; if(++done===files.length) finish(); });
+          };
+          r.onerror=function(){ if(++done===files.length) finish(); };
+          r.readAsDataURL(file);
+        })(files[f]); }
+        function finish(){
+          haptic([15,30,15]);
+          showToast('Upload complete', saved+' saved'+(synced?' · '+synced+' ☁️ synced':''), '⬆️');
+          try{ if(k==='photo') renderPhotosGrid(); else renderVideoUploads(); }catch(e){}
+        }
+      };
+      input.click();
+    }; })(btns[b]); }
+  };
+
+  /* re-apply refresh rate */
+  try{ applySmoothness(); }catch(e){}
+  console.log('%c[TelzonOS] BUILD v8 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v8','Loaded OK · 2026-10-22','☁️'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v9 — flow + fixes ================= */
+(function(){
+  var T9=window.__TZP=window.__TZP||{}; if(T9.v9) return; T9.v9=1;
+
+  /* baked-in Firebase config support */
+  window.tzFbConf = function(){
+    var c = storageGet('telzon_firebase_conf', null);
+    if(c && c.apiKey) return c;
+    if(typeof TELZON_FIREBASE_CONFIG !== 'undefined' && TELZON_FIREBASE_CONFIG && TELZON_FIREBASE_CONFIG.apiKey) return TELZON_FIREBASE_CONFIG;
+    return null;
+  };
+
+  /* PIN-only Cancel → back to Quick Tour */
+  document.addEventListener('click', function(e){
+    if(!(e.target && e.target.id==='lock-pin-cancel')) return;
+    if(!DOM.lockScreen.classList.contains('pin-only-mode')) return;
+    DOM.lockScreen.classList.remove('pin-only-mode','pin-mode');
+    DOM.lockScreen.classList.add('unlocked');
+    DOM.lockScreen.style.display='none';
+    if(DOM.lockPinCancel) DOM.lockPinCancel.textContent='Cancel';
+    state.currentPinInput='';
+    state.currentScreen='intro';
+    DOM.introScreen.classList.remove('hidden-left','hidden-right','blur-in');
+    DOM.introScreen.classList.add('active');
+    try{ updateOrbVisibility(); }catch(err){}
+  }, true);
+
+  /* swipe hint / bar tap → unlock attempt (extra path) */
+  document.addEventListener('click', function(e){
+    if(!e.target.closest) return;
+    if(e.target.closest('.lock-swipe-hint') || e.target.closest('.lock-swipe-bar')){
+      if(DOM.lockScreen.style.display==='none') return;
+      if(DOM.lockScreen.classList.contains('pin-only-mode')||DOM.lockScreen.classList.contains('lockout-mode')) return;
+      try{ attemptUnlock(); }catch(err){}
+    }
+  }, true);
+
+  /* watchdog: data-editing stuck fix + swipe flag hygiene */
+  setInterval(function(){
+    try{
+      if(DOM.lockTime.getAttribute('data-editing')==='true' && !DOM.lockClockEdit.classList.contains('active')){
+        DOM.lockTime.setAttribute('data-editing','false');
+      }
+    }catch(e){}
+  },2000);
+
+  console.log('%c[TelzonOS] BUILD v9 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v9','Loaded OK · 2026-10-22','🔓'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v10 ================= */
+(function(){
+  var TA=window.__TZP=window.__TZP||{}; if(TA.v10) return; TA.v10=1;
+  function pressOn(e){
+    var k=e.target.closest&&e.target.closest('.lock-pin-key'); if(!k) return;
+    if(k.classList.contains('empty')) return;
+    k.classList.add('pressed');
+  }
+  function pressOff(e){
+    var k=e.target.closest&&e.target.closest('.lock-pin-key'); if(!k) return;
+    setTimeout(function(){ k.classList.remove('pressed'); },70);
+  }
+  document.addEventListener('pointerdown', pressOn, {passive:true});
+  document.addEventListener('touchstart', pressOn, {passive:true});
+  document.addEventListener('pointerup', pressOff, {passive:true});
+  document.addEventListener('pointercancel', pressOff, {passive:true});
+  document.addEventListener('touchend', pressOff, {passive:true});
+  console.log('%c[TelzonOS] BUILD v10 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v10','Loaded OK · 2026-10-22','⌨️'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v12 — lock/AOD state fix ================= */
+(function(){
+  var TB=window.__TZP=window.__TZP||{}; if(TB.v12) return; TB.v12=1;
+
+  /* currentScreen sync — stale 'home' was letting double-tap activate AOD over the lock screen */
+  var _lsf=lockScreenFunc;
+  lockScreenFunc=function(){ try{ state.currentScreen='lock'; }catch(e){} _lsf(); };
+  var _aodLS=aodToLockScreen;
+  aodToLockScreen=function(){ try{ state.currentScreen='lock'; }catch(e){} _aodLS(); };
+  var _actAOD=activateAOD;
+  activateAOD=function(){
+    try{
+      if(DOM.lockScreen.style.display!=='none' && !DOM.lockScreen.classList.contains('unlocked')) return; /* never over lock */
+      if(state.currentScreen==='lock') return;
+    }catch(e){}
+    _actAOD();
+  };
+
+  /* watchdog: AOD stuck above a visible lock screen → dismiss */
+  setInterval(function(){
+    try{
+      if(DOM.aodScreen.classList.contains('active') && DOM.lockScreen.style.display!=='none' && !DOM.lockScreen.classList.contains('unlocked')){
+        DOM.aodScreen.classList.remove('active'); state.aodActive=false;
+      }
+    }catch(e){}
+  },1500);
+
+  console.log('%c[TelzonOS] BUILD v12 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v12','Loaded OK · 2026-10-22','🔓'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v13 — lock interactivity repair ================= */
+(function(){
+  var TC=window.__TZP=window.__TZP||{}; if(TC.v13) return; TC.v13=1;
+  function repairLock(){
+    try{
+      DOM.lockScreen.style.pointerEvents='auto';
+      if(DOM.lockScreen.style.display!=='none') DOM.lockScreen.classList.remove('unlocked');
+    }catch(e){}
+  }
+  var _lsf=lockScreenFunc; lockScreenFunc=function(){ _lsf(); repairLock(); };
+  var _aodls=aodToLockScreen; aodToLockScreen=function(){ _aodls(); repairLock(); };
+  var _spe=showPinEntry; showPinEntry=function(){ DOM.lockScreen.style.display='flex'; DOM.lockScreen.style.pointerEvents='auto'; DOM.lockScreen.classList.remove('unlocked'); _spe(); };
+  var _spw=showPwEntry; showPwEntry=function(){ DOM.lockScreen.style.display='flex'; DOM.lockScreen.style.pointerEvents='auto'; DOM.lockScreen.classList.remove('unlocked'); _spw(); };
+  console.log('%c[TelzonOS] BUILD v13 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v13','Loaded OK · 2026-10-22','🩹'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v14 ================= */
+(function(){
+  var TD=window.__TZP=window.__TZP||{}; if(TD.v14) return; TD.v14=1;
+  window.esc = window.esc || function(x){ return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  /* 1) Back-to-Tour: stop the old cancelUnlock from re-showing the lock */
+  (function(){
+    var oldH=null;
+    // patch the v9 capture handler by adding stopPropagation at capture time
+    document.addEventListener('click', function(e){
+      if(!(e.target && e.target.id==='lock-pin-cancel')) return;
+      if(!DOM.lockScreen.classList.contains('pin-only-mode')) return;
+      e.stopPropagation(); /* block element-level cancelUnlock */
+    }, true);
+  })();
+
+  /* 2) Wallpaper & Style modal — live status bar */
+  var _ows=openWallpaperStyle;
+  openWallpaperStyle=function(a,b){
+    _ows(a,b);
+    try{
+      var m=document.getElementById('wallpaper-style-modal'); if(!m) return;
+      if(!m.querySelector('.modal-status-bar')){
+        var sb=document.createElement('div'); sb.className='modal-status-bar';
+        sb.innerHTML='<span id="wsb-time">--:--</span><div class="status-right"><div class="signal-bars"><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div><div class="signal-bar"></div></div><div class="battery-wrap"><div class="battery-fill" id="wsb-batt" style="width:80%"></div></div></div>';
+        m.insertBefore(sb, m.firstChild);
+        m.style.paddingTop='calc(env(safe-area-inset-top) + 42px)';
+      }
+      if(window.__wsbTimer) clearInterval(window.__wsbTimer);
+      window.__wsbTimer=setInterval(function(){
+        var t=document.getElementById('wsb-time');
+        if(!t){ clearInterval(window.__wsbTimer); return; }
+        t.textContent=getTimeString();
+        var bf=document.getElementById('wsb-batt'); if(bf) bf.style.width=(batteryLevelPct||80)+'%';
+      },1000);
+    }catch(e){}
+  };
+
+  /* 3) Settings — Dark Mode row out, Refresh/Parallax INTO display plate */
+  var _gsh=getSettingsHTML;
+  getSettingsHTML=function(){
+    var h=_gsh();
+    h=h.replace(/<div class="settings-item" data-settings="darkmode">[\s\S]*?id="darkmode-toggle"><\/div><\/div>/,'');
+    h=h.replace('</div><div class="settings-item" data-settings="refreshrate">','<div class="settings-item" data-settings="refreshrate">');
+    h=h.replace('<div class="settings-section-title">Battery</div>','</div><div class="settings-section-title">Battery</div>');
+    return h;
+  };
+
+  /* 4) Control Center accent — matches home wallpaper */
+  var CC_ON={default:'rgba(167,139,250,.38)',purple:'rgba(192,132,252,.38)',pink:'rgba(255,122,184,.38)',blue:'rgba(111,177,255,.38)',green:'rgba(74,222,128,.38)',sunset:'rgba(251,146,60,.38)',ocean:'rgba(56,189,248,.38)',aurora:'rgba(52,211,153,.38)',midnight:'rgba(129,140,248,.38)',fire:'rgba(248,113,113,.38)'};
+  setInterval(function(){
+    try{
+      var c=CC_ON[state.homeWallpaper||'default']||CC_ON.default;
+      if(c!==state._ccOn){ state._ccOn=c; document.documentElement.style.setProperty('--cc-on',c); }
+    }catch(e){}
+  },1500);
+
+  /* 5) TBrowser — proxy load (any website, bypasses X-Frame-Options) */
+  function tzProxyBrowse(val){
+    var wrap=document.getElementById('tb-frame-wrap'); if(!wrap) return;
+    var url=val.trim(); if(!url) return;
+    if(!/^https?:\/\//i.test(url)){ if(url.indexOf('.')===-1||url.indexOf(' ')!==-1){ url='https://www.google.com/search?q='+encodeURIComponent(val); } else { url='https://'+url; } }
+    wrap.innerHTML='<div id="tb-loading" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:14px;justify-content:center;align-items:center;background:#1a1a2e;color:rgba(255,255,255,.6);z-index:2"><div style="font-size:34px">🌐</div><div style="font-size:14px">Loading '+esc(val)+'…</div></div>';
+    fetch('https://api.allorigins.win/raw?url='+encodeURIComponent(url))
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.text(); })
+      .then(function(html){
+        try{
+          if(html.toLowerCase().indexOf('<head')>-1){ html=html.replace(/<head([^>]*)>/i,'<head$1><base href="'+url+'">'); }
+          else { html='<base href="'+url+'">'+html; }
+        }catch(e){}
+        wrap.innerHTML='';
+        var fr=document.createElement('iframe');
+        fr.className='tbrowser-frame';
+        fr.setAttribute('sandbox','allow-same-origin allow-scripts allow-forms allow-popups allow-modals');
+        fr.srcdoc=html;
+        wrap.appendChild(fr);
+      })
+      .catch(function(){
+        wrap.innerHTML='<div class="tbrowser-empty"><div class="tbrowser-empty-icon">⚠️</div><div style="font-size:15px;font-weight:500;color:#fff">Could not load</div><div style="font-size:12.5px;line-height:1.6">This site blocks external loading.<br><a href="'+url+'" target="_blank" style="color:#a78bfa">Open '+esc(url)+' in a new tab ↗</a></div></div>';
+      });
+  }
+  document.addEventListener('click', function(e){
+    var go=e.target.closest&&e.target.closest('#tb-go');
+    if(go){ e.stopImmediatePropagation(); e.preventDefault(); var u=document.getElementById('tb-url'); if(u) tzProxyBrowse(u.value); }
+  }, true);
+  document.addEventListener('keydown', function(e){
+    if((e.key==='Enter'||e.keyCode===13) && e.target && e.target.id==='tb-url'){
+      e.stopImmediatePropagation(); e.preventDefault(); tzProxyBrowse(e.target.value);
+    }
+  }, true);
+
+  /* 6) Quick Tour — What's New slides hook (add features here each update) */
+  try{
+    if(window.TZ_WHATS_NEW && window.TZ_WHATS_NEW.length){
+      for(var w=0;w<window.TZ_WHATS_NEW.length;w++) INTRO_SLIDES.push(window.TZ_WHATS_NEW[w]);
+    }
+  }catch(e){}
+
+  /* 7) Firebase config clear option (account page when signed out w/ conf) */
+  var _oap=openAccountPage;
+  openAccountPage=function(){
+    _oap();
+    try{
+      var pg=document.getElementById('tz-account-page');
+      if(!pg) return;
+      if(!state.account && tzFbConf()){
+        var btn=document.createElement('button');
+        btn.className='tz-sheet-btn plain'; btn.id='tz-fb-clear';
+        btn.style.cssText='margin-top:10px;width:100%;font-size:12px;padding:10px';
+        btn.textContent='Disconnect Firebase (clear saved config)';
+        pg.appendChild(btn);
+        btn.onclick=function(){ try{ storageSet('telzon_firebase_conf',null); }catch(e){} showToast('Firebase','Config cleared','🗑️'); pg.remove(); openAccountPage(); };
+      }
+    }catch(e){}
+  };
+
+  console.log('%c[TelzonOS] BUILD v14 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v14','Loaded OK · 2026-10-22','✨'); }catch(e){} }, 9800);
 })();
 
 })();
