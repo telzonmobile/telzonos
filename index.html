@@ -1353,6 +1353,26 @@ body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transit
 .prem-thumb{position:relative}
 .prem-thumb .lock{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;font-size:26px;background:rgba(0,0,0,.35);border-radius:inherit}
 
+
+/* ===== TELZON BUILD v20 ===== */
+.camera-app .camera-feed.ratio-4-3{width:100%!important;height:auto!important;aspect-ratio:4/3!important}
+.camera-app .camera-feed.ratio-16-9{width:100%!important;height:auto!important;aspect-ratio:16/9!important}
+.camera-app .camera-feed.ratio-1-1{width:100%!important;height:auto!important;aspect-ratio:1/1!important}
+.telzon-toast{left:50%!important;right:auto!important;width:auto!important;min-width:280px;max-width:86vw;border-radius:100px!important;padding:10px 18px!important;background:rgba(14,14,30,.94)!important;transform:translateX(-50%) translateY(-150%)!important}
+.telzon-toast.visible{transform:translateX(-50%) translateY(0)!important}
+body.tz-onehand #home-screen{transform:scale(.7) translateY(26%)!important;transform-origin:50% 100%!important;border-radius:34px 34px 0 0!important}
+.tz-oh-exit{position:fixed;left:0;right:0;top:0;bottom:52%;z-index:9450;display:none}
+body.tz-onehand .tz-oh-exit{display:block}
+body.tz-onehand .oh-hint{position:absolute;top:calc(env(safe-area-inset-top) + 44%);left:0;right:0;text-align:center;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:2px;text-transform:uppercase}
+.tz-edge{position:fixed;top:22%;right:0;z-index:9455;display:flex;align-items:stretch}
+.tz-edge-handle{width:9px;border-radius:10px 0 0 10px;background:rgba(167,139,250,.55);border:1px solid rgba(255,255,255,.28);border-right:none;cursor:pointer}
+.tz-edge-panel{width:212px;background:rgba(16,16,34,.97);border:1px solid rgba(255,255,255,.15);border-right:none;border-radius:22px 0 0 22px;padding:16px 12px;transform:translateX(105%);transition:transform .32s cubic-bezier(.22,.8,.3,1);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.tz-edge.open .tz-edge-panel{transform:translateX(0)}
+.tz-edge-title{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);padding:0 8px 10px}
+.tz-edge-app{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:14px;color:#fff;font-size:13.5px;font-weight:500;cursor:pointer}
+.tz-edge-app:active{background:rgba(167,139,250,.28);transform:scale(.97)}
+.tz-edge-app .ei{width:36px;height:36px;border-radius:11px;display:flex;justify-content:center;align-items:center;font-size:17px;flex-shrink:0}
+
 </style>
 <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22TelzonOS%22%2C%20%22short_name%22%3A%20%22TelzonOS%22%2C%20%22description%22%3A%20%22TelzonOS%20%5Cu2014%20a%20phone-style%20web%20operating%20system%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22scope%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22orientation%22%3A%20%22portrait%22%2C%20%22background_color%22%3A%20%22%230a0a1f%22%2C%20%22theme_color%22%3A%20%22%230a0a1f%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22./icon-192.png%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%7D%2C%20%7B%22src%22%3A%20%22./icon-512.png%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%20maskable%22%7D%5D%7D"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="apple-touch-icon" href="./icon-192.png">
 </head>
@@ -3044,11 +3064,12 @@ body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transit
         for(var j=0;j<lensBtns.length;j++){ (function(btn){ btn.addEventListener('click', function(){ switchLens(btn.getAttribute('data-lens')); }); })(lensBtns[j]); }
         for(var r=0;r<ratioBtns.length;r++){ (function(btn){ btn.addEventListener('click', function(){ switchRatio(btn.getAttribute('data-ratio')); }); })(ratioBtns[r]); }
         /* ===== FIXED TOUCH: Camera Zoom Track ===== */
-        if(zoomTrack){ var isDragging = false; function updateZoom(e){ var rect = zoomTrack.getBoundingClientRect(); var clientX = e.clientX; var pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)); var zoom = Math.exp((pct / 100) * Math.log(15)); applyZoom(zoom, pct); } zoomTrack.addEventListener('pointerdown', function(e){isDragging=true; try{zoomTrack.setPointerCapture(e.pointerId);}catch(err){} updateZoom(e); e.preventDefault();},{passive:false}); state.zoomMoveHandler=function(e){if(isDragging)updateZoom(e);}; state.zoomUpHandler=function(){isDragging=false;};
+        if(zoomTrack){ var isDragging = false; function updateZoom(e){ var rect = zoomTrack.getBoundingClientRect(); var clientX = e.clientX; var pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100)); var zoom = Math.exp((pct / 100) * Math.log(150)); applyZoom(zoom, pct); } zoomTrack.addEventListener('pointerdown', function(e){isDragging=true; try{zoomTrack.setPointerCapture(e.pointerId);}catch(err){} updateZoom(e); e.preventDefault();},{passive:false}); state.zoomMoveHandler=function(e){if(isDragging)updateZoom(e);}; state.zoomUpHandler=function(){isDragging=false;};
             document.addEventListener('pointermove', state.zoomMoveHandler); document.addEventListener('pointerup', state.zoomUpHandler); document.addEventListener('pointercancel', state.zoomUpHandler); }
     }
     function switchCameraMode(mode){ state.cameraMode = mode;haptic(8); state.cameraZoom = 1;applyZoom(1, 0); var modeBtns = $$('.camera-mode-btn'); for(var i=0;i<modeBtns.length;i++){ modeBtns[i].classList.toggle('active', modeBtns[i].getAttribute('data-mode') === mode); } var feed = $('#camera-feed');if(!feed) return; feed.classList.remove('bokeh','vivid','night','portrait','macro'); if(mode === 'portrait') feed.classList.add('portrait'); else if(mode === 'night') feed.classList.add('night'); else if(mode === 'vivid') feed.classList.add('vivid'); }
-    function switchLens(lens){ if(state.cameraFacing==='user')return; state.currentLens=lens; haptic(10); var feed=$('#camera-feed'); if(feed)feed.classList.toggle('macro',lens==='macro'); var zoom=lens==='0.5x'?0.5:(lens==='macro'?2:1); var pct=zoom<=1?0:Math.max(0,Math.min(100,(Math.log(zoom)/Math.log(15))*100)); applyZoom(zoom,pct); var lensBtns=$$('.camera-lens-btn'); for(var i=0;i<lensBtns.length;i++){lensBtns[i].classList.toggle('active',lensBtns[i].getAttribute('data-lens')===lens);} if(lens==='macro')showToast('Camera','Macro effect enabled','🔬'); }
+    function switchLens(lens){ if(state.cameraFacing==='user')return;
+        if(lens==='0.5x' && !state.wideLensAvailable){ showToast('Camera','Wide lens not supported on this device','⚠️'); haptic([30,20,30]); return; } state.currentLens=lens; haptic(10); var feed=$('#camera-feed'); if(feed)feed.classList.toggle('macro',lens==='macro'); var zoom=lens==='0.5x'?0.5:(lens==='macro'?2:1); var pct=zoom<=1?0:Math.max(0,Math.min(100,(Math.log(zoom)/Math.log(15))*100)); applyZoom(zoom,pct); var lensBtns=$$('.camera-lens-btn'); for(var i=0;i<lensBtns.length;i++){lensBtns[i].classList.toggle('active',lensBtns[i].getAttribute('data-lens')===lens);} if(lens==='macro')showToast('Camera','Macro effect enabled','🔬'); else if(lens==='0.5x')showToast('Camera','Wide lens ON','📷'); }
     function switchRatio(ratio){ state.cameraRatio = ratio;haptic(8); var feed = $('#camera-feed');if(!feed) return; feed.classList.remove('ratio-4-3','ratio-16-9','ratio-1-1'); feed.classList.add('ratio-' + ratio); var ratioBtns = $$('.camera-ratio-btn'); for(var i=0;i<ratioBtns.length;i++){ ratioBtns[i].classList.toggle('active', ratioBtns[i].getAttribute('data-ratio') === ratio); } }
     function toggleBokeh(){ var feed = $('#camera-feed');if(!feed) return; feed.classList.toggle('bokeh');haptic(10); showToast('Camera', feed.classList.contains('bokeh') ? 'Bokeh ON' : 'Bokeh OFF', '✨'); }
     function applyZoom(zoom, pct){ state.cameraZoom = zoom; var feed = $('#camera-feed'); if(feed){ var visualScale = Math.min(zoom, 10); feed.style.transform = 'translate(-50%,-50%) scale(' + visualScale + ') ' + (state.cameraFacing === 'user' ? 'scaleX(-1)' : ''); } var zoomValue = $('#camera-zoom-value'); var zoomFill = $('#camera-zoom-fill'); var displayZoom = zoom < 10 ? zoom.toFixed(1) : Math.round(zoom); if(zoomValue) zoomValue.textContent = displayZoom + 'x'; if(zoomFill) zoomFill.style.width = pct + '%'; }
@@ -3063,7 +3084,7 @@ body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transit
             if(state.cameraRatio === '4-3'){ cropH = canvas.width * 3 / 4; } else if(state.cameraRatio === '1-1'){ cropH = canvas.width; } else if(state.cameraRatio === '16-9'){ cropH = canvas.width * 9 / 16; }
             var sx = 0, sy = (canvas.height - cropH) / 2;
             var finalCanvas = document.createElement('canvas'); finalCanvas.width = cropW;finalCanvas.height = cropH;
-            var fctx = finalCanvas.getContext('2d'); if(state.cameraFacing === 'user'){ fctx.translate(cropW, 0); fctx.scale(-1, 1); } fctx.drawImage(feed, sx, sy, cropW, cropH, 0, 0, cropW, cropH);
+            var fctx = finalCanvas.getContext('2d'); if(state.cameraFacing === 'user'){ fctx.translate(cropW, 0); fctx.scale(-1, 1); } var _z=state.cameraZoom||1; fctx.drawImage(feed, sx/_z, sy/_z, cropW/_z, cropH/_z, 0, 0, cropW, cropH);
             finalCanvas.toBlob(function(blob){ var url = URL.createObjectURL(blob); var a = document.createElement('a'); a.href = url;a.download = 'TelzonOS_' + Date.now() + '.jpg';a.click(); setTimeout(function(){URL.revokeObjectURL(url);}, 1000); showToast('Camera','📸 Photo saved',''); haptic([10,20,10]); }, 'image/jpeg', 0.95);
         } catch(e){ showToast('Camera','Photo error','⚠️'); }
     }
@@ -4554,6 +4575,8 @@ initIntro();
   once('tap',function(){
     document.addEventListener('touchend',function(e){
       var appEl=e.target.closest&&e.target.closest('.home-app'); if(!appEl) return;
+      if(window.dragState&&dragState.longPressTriggered) return;
+      var _lpm=document.getElementById('app-long-press-menu'); if(_lpm&&_lpm.classList.contains('active')) return;
       var t=e.changedTouches&&e.changedTouches[0];
       if(tsOk&&t&&Math.hypot(t.clientX-tsX,t.clientY-tsY)>12) return;
       var el=appEl;
@@ -4580,7 +4603,7 @@ initIntro();
     ensure(document.querySelector('#lock-status-bar .status-right'));
   });
   once('marker',function(){
-    console.log('%c[TelzonOS] BUILD v18 · 2026-10-22','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+    console.log('%c[TelzonOS] BUILD v20 · 2026-10-23','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
     
   });
 })();
@@ -5553,7 +5576,7 @@ initIntro();
 
 
 /* ===== TELZON BUILD MARKER (canonical) ===== */
-setTimeout(function(){ try{ showToast('TelzonOS · Build v19','Loaded OK · Premium + Install ready','👑'); }catch(e){} }, 9800);
+setTimeout(function(){ try{ showToast('TelzonOS · Build v23','Loaded OK · Edge rebuilt','🟣'); }catch(e){} }, 9800);
 
 
 /* ================= TELZON BUILD v19 — Premium + PWA ================= */
@@ -5737,6 +5760,225 @@ setTimeout(function(){ try{ showToast('TelzonOS · Build v19','Loaded OK · Prem
     'Crown badge on your account + unlimited cloud uploads.',
     'Install TelzonOS from Settings → System → Install App to run it like a real app (PWA).']}); }catch(e){}
   console.log('%c[TelzonOS] BUILD v19 · Premium + PWA','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+})();
+
+
+/* ================= TELZON BUILD v20 — camera fixes + super features ================= */
+(function(){
+  var TJ=window.__TZP=window.__TZP||{}; if(TJ.v20) return; TJ.v20=1;
+
+  /* ---- Premium is free now: remove demo payment ---- */
+  window.tzGoPremium=function(){
+    if(!state.premium){ state.premium=true; storageSet('telzon_premium',true);
+      showToast('Premium','Premium features unlocked — enjoy 👑','⭐'); haptic([20,40,20,40,60]);
+      try{ var av=document.querySelector('.settings-account-avatar'); if(av) av.classList.add('tz-crown'); }catch(e){}
+    } else showToast('Premium','Already unlocked 👑','⭐');
+  };
+  /* App Lock: free, no payment sheet */
+  var _olpm19=openAppLongPressMenu;
+  openAppLongPressMenu=function(app){
+    _olpm19(app);
+    try{
+      var box=document.getElementById('app-lpm-options'); if(!box) return;
+      var opts=box.querySelectorAll('.app-lpm-option');
+      for(var i=0;i<opts.length;i++){ (function(o){
+        var lbl=o.querySelector('.app-lpm-option-label');
+        if(lbl && /Lock app|Unlock app|App Lock/.test(lbl.textContent)){
+          var locked=tzIsAppLocked(app.name);
+          lbl.textContent=locked?'Unlock app':'Lock app';
+          o.querySelector('.app-lpm-option-icon').textContent=locked?'🔓':'🔒';
+          o.onclick=function(){ tzToggleAppLock(app.name); try{ document.getElementById('app-long-press-menu').classList.remove('active'); }catch(e){} };
+        }
+      })(opts[i]); }
+    }catch(e){}
+  };
+  /* Premium wallpapers: unlocked */
+  var _rwg19=renderWallpaperGrid;
+  renderWallpaperGrid=function(){
+    _rwg19();
+    try{
+      var g=DOM.wsGrid; if(!g) return;
+      var locks=g.querySelectorAll('.prem-thumb .lock'); for(var i=0;i<locks.length;i++) locks[i].remove();
+      var th=g.querySelectorAll('.prem-thumb');
+      for(var j=0;j<th.length;j++){ (function(t){
+        t.onclick=function(){
+          var wid=t.getAttribute('data-wp');
+          state.lockWallpaper=wid;
+          try{ applyLockWallpaper(wid); }catch(e){}
+          var all=g.querySelectorAll('.ws-thumb'); for(var k=0;k<all.length;k++) all[k].classList.remove('active');
+          t.classList.add('active'); haptic(10);
+          showToast('Wallpaper','Premium wallpaper applied 👑','🖼️');
+        };
+      })(th[j]); }
+    }catch(e){}
+  };
+  /* Remove "Go Premium" CTA from account page */
+  var _oap2=openAccountPage;
+  openAccountPage=function(){ _oap2(); try{ var c=document.getElementById('tz-prem-cta'); if(c) c.parentNode.removeChild(c); }catch(e){} };
+
+  /* ---- Samsung OneUI: One-Handed Mode ---- */
+  (function(){
+    var exit=document.createElement('div'); exit.className='tz-oh-exit';
+    exit.innerHTML='<div class="oh-hint">Tap to exit one-handed mode</div>';
+    exit.addEventListener('click',function(){ document.body.classList.remove('tz-onehand'); haptic(10); });
+    document.body.appendChild(exit);
+    var sy=0,sok=false;
+    var zone=document.getElementById('bottom-gesture-area');
+    function down(e){ if(state.currentScreen!=='home'||state.currentOpenApp) return; sy=(e.touches?e.touches[0].clientY:e.clientY); sok=true; }
+    function up(e){ if(!sok) return; sok=false; var y=(e.changedTouches?e.changedTouches[0].clientY:e.clientY); if(y-sy>50){ document.body.classList.toggle('tz-onehand'); haptic(15); if(document.body.classList.contains('tz-onehand')) showToast('One-Handed Mode','Swipe up on the bar again to exit','🖐️'); } }
+    if(zone){ zone.addEventListener('touchstart',down,{passive:true}); zone.addEventListener('touchend',up,{passive:true}); }
+  })();
+
+  /* ---- Samsung: Edge Panel ---- */
+  (function(){
+    var edge=document.createElement('div'); edge.className='tz-edge'; edge.id='tz-edge';
+    var apps=[['Phone','📞','#3ddc97'],['Camera','📷','#8b8ba7'],['TelzonAI','✨','#7c3aed'],['Calculator','🔢','#ea580c']];
+    var html='<div class="tz-edge-handle" id="tz-edge-handle"></div><div class="tz-edge-panel"><div class="tz-edge-title">Edge Panel</div>';
+    for(var i=0;i<apps.length;i++) html+='<div class="tz-edge-app" data-ea="'+apps[i][0]+'"><div class="ei" style="background:'+apps[i][2]+'">'+apps[i][1]+'</div>'+apps[i][0]+'</div>';
+    edge.innerHTML=html+'</div>';
+    document.body.appendChild(edge);
+    var timer=null;
+    function openP(){ edge.classList.add('open'); haptic(8); clearTimeout(timer); timer=setTimeout(function(){ edge.classList.remove('open'); },5000); }
+    document.getElementById('tz-edge-handle').addEventListener('click',function(){ edge.classList.toggle('open'); if(edge.classList.contains('open')) openP(); });
+    var eas=edge.querySelectorAll('.tz-edge-app');
+    for(var j=0;j<eas.length;j++){ (function(el){ el.addEventListener('click',function(){
+      var name=el.getAttribute('data-ea'); var app=null;
+      for(var k=0;k<ALL_APPS.length;k++) if(ALL_APPS[k].name===name) app=ALL_APPS[k];
+      edge.classList.remove('open'); haptic(10);
+      if(app){ var tmp=document.createElement('div'); tmp.style.cssText='position:fixed;width:60px;height:60px;right:8px;top:38%;opacity:0;pointer-events:none'; document.body.appendChild(tmp);
+        try{ openApp(app,tmp); }catch(e){} setTimeout(function(){ if(tmp.parentNode) tmp.parentNode.removeChild(tmp); },800); }
+    }); })(eas[j]); }
+  })();
+
+  /* ---- Tour slide ---- */
+  try{ INTRO_SLIDES.push({emoji:'🚀',title:'Pro Features',bullets:[
+    'Camera — real 4:3 / 16:9 / 1:1 previews, zoom is captured in photos, up to 150x zoom, smart wide-lens.',
+    'Long-press an app opens only its quick menu — never launches the app.',
+    'App Lock & Premium wallpapers are free — long-press any app to lock it.',
+    'One-Handed Mode — swipe down on the bottom bar (Samsung OneUI style).',
+    'Edge Panel — tap the glow strip on the right edge for instant apps.',
+    'Notifications arrive as floating Dynamic-Island style pills at the top.']}); }catch(e){}
+
+  console.log('%c[TelzonOS] BUILD v20 · 2026-10-23','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v20','Loaded OK · Pro features','🚀'); }catch(e){} }, 9800);
+})();
+
+
+/* ================= TELZON BUILD v21 — Edge Panel pull gesture ================= */
+(function(){
+  var TK=window.__TZP=window.__TZP||{}; if(TK.v21) return; TK.v21=1;
+  var sx=0, sy=0, tracking=false, opened=false;
+  function edgeOpen(){
+    var edge=document.getElementById('tz-edge'); if(!edge) return;
+    if(edge.classList.contains('open')) return;
+    edge.classList.add('open'); haptic(12);
+    clearTimeout(edge.__t21);
+    edge.__t21=setTimeout(function(){ edge.classList.remove('open'); },6000);
+  }
+  document.addEventListener('pointerdown', function(e){
+    if(e.clientX > window.innerWidth-30 && e.clientY > window.innerHeight*0.12 && e.clientY < window.innerHeight*0.88){
+      tracking=true; sx=e.clientX; sy=e.clientY; opened=false;
+    } else tracking=false;
+  }, {passive:true});
+  document.addEventListener('pointermove', function(e){
+    if(!tracking) return;
+    var dx=sx-e.clientX, dy=Math.abs(e.clientY-sy);
+    if(!opened && dx>34 && dy<100){ opened=true; tracking=false; edgeOpen(); }
+    if(opened && dx<-40){ opened=false; tracking=false; var edge=document.getElementById('tz-edge'); if(edge) edge.classList.remove('open'); }
+  }, {passive:true});
+  ['pointerup','pointercancel'].forEach(function(ev){ document.addEventListener(ev, function(){ tracking=false; }, {passive:true}); });
+
+  /* tap outside panel closes it */
+  document.addEventListener('click', function(e){
+    var edge=document.getElementById('tz-edge');
+    if(!edge || !edge.classList.contains('open')) return;
+    if(e.target.closest && e.target.closest('#tz-edge')) return;
+    edge.classList.remove('open');
+  }, true);
+
+  console.log('%c[TelzonOS] BUILD v21 · 2026-10-23','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+})();
+
+
+/* ================= TELZON BUILD v22 — Edge Panel placement hard-fix ================= */
+(function(){
+  var TL=window.__TZP=window.__TZP||{}; if(TL.v22) return; TL.v22=1;
+  function placeEdge(){
+    var e=document.getElementById('tz-edge'); if(!e) return;
+    /* remove any duplicates (stale DOM) */
+    var dup=document.querySelectorAll('#tz-edge'); if(dup.length>1){ for(var d=1;d<dup.length;d++) dup[d].remove(); e=dup[0]; }
+    e.style.cssText='position:fixed;top:30%;right:0;left:auto;bottom:auto;margin:0;padding:0;z-index:9455;display:flex;align-items:stretch;width:auto;transform:none';
+    var h=document.getElementById('tz-edge-handle');
+    if(h) h.style.cssText='width:13px;min-height:128px;border-radius:12px 0 0 12px;background:linear-gradient(180deg,rgba(192,132,252,.95),rgba(124,58,237,.95));border:1px solid rgba(255,255,255,.4);border-right:none;box-shadow:-4px 0 18px rgba(167,139,250,.5);cursor:pointer;flex-shrink:0';
+    var p=e.querySelector('.tz-edge-panel');
+    if(p) p.style.cssText='width:212px;background:rgba(16,16,34,.97);border:1px solid rgba(255,255,255,.16);border-right:none;border-radius:22px 0 0 22px;padding:16px 12px;transform:translateX(105%);transition:transform .32s cubic-bezier(.22,.8,.3,1);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);flex-shrink:0';
+  }
+  placeEdge(); setTimeout(placeEdge,1200); setTimeout(placeEdge,3500);
+  console.log('%c[TelzonOS] BUILD v22 · 2026-10-23','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+})();
+
+
+/* ================= TELZON BUILD v23 — Edge Panel rebuild ================= */
+(function(){
+  var TM=window.__TZP=window.__TZP||{}; if(TM.v23) return; TM.v23=1;
+
+  /* remove old broken edge completely */
+  (function(){ var old=document.getElementById('tz-edge'); if(old) old.remove(); })();
+
+  /* liquid-glass strip (right edge) */
+  var strip=document.createElement('div'); strip.id='tz-strip';
+  strip.style.cssText='position:fixed;top:33%;right:0;z-index:9455;width:9px;height:170px;border-radius:10px 0 0 10px;background:linear-gradient(180deg,rgba(255,255,255,.32),rgba(255,255,255,.10));border:1px solid rgba(255,255,255,.45);border-right:none;box-shadow:inset 0 1px 1px rgba(255,255,255,.6),-4px 0 16px rgba(167,139,250,.35);backdrop-filter:blur(12px) saturate(1.4);-webkit-backdrop-filter:blur(12px) saturate(1.4);cursor:pointer';
+  document.body.appendChild(strip);
+
+  /* panel */
+  var panel=document.createElement('div'); panel.id='tz-strip-panel';
+  panel.style.cssText='position:fixed;top:26%;right:9px;z-index:9456;width:216px;background:rgba(18,18,38,.92);border:1px solid rgba(255,255,255,.18);border-radius:24px;padding:16px 12px;transform:translateX(130%);transition:transform .34s cubic-bezier(.22,.8,.3,1);backdrop-filter:blur(28px) saturate(1.3);-webkit-backdrop-filter:blur(28px) saturate(1.3);box-shadow:0 18px 50px rgba(0,0,0,.5)';
+  var apps=[['Phone','📞','#3ddc97'],['Camera','📷','#8b8ba7'],['TelzonAI','✨','#7c3aed'],['Calculator','🔢','#ea580c'],['Settings','⚙️','#6b6b8a']];
+  var ph='<div style="font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);padding:0 8px 10px">Edge Panel</div>';
+  for(var i=0;i<apps.length;i++){ ph+='<div class="tzs-app" data-a="'+apps[i][0]+'" style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:14px;color:#fff;font-size:13.5px;font-weight:500;cursor:pointer"><span style="width:36px;height:36px;border-radius:11px;background:'+apps[i][2]+';display:flex;justify-content:center;align-items:center;font-size:17px;flex-shrink:0">'+apps[i][1]+'</span>'+apps[i][0]+'</div>'; }
+  panel.innerHTML=ph;
+  document.body.appendChild(panel);
+  function openP(){ panel.style.transform='translateX(0)'; haptic(10); clearTimeout(panel.__t); panel.__t=setTimeout(closeP,6000); }
+  function closeP(){ panel.style.transform='translateX(130%)'; }
+  strip.addEventListener('click',function(){ if(panel.style.transform==='translateX(0px)'||panel.style.transform==='translateX(0)') closeP(); else openP(); });
+  var pas=panel.querySelectorAll('.tzs-app');
+  for(var j=0;j<pas.length;j++){ (function(el){ el.addEventListener('click',function(){
+    var name=el.getAttribute('data-a'); var app=null;
+    for(var k=0;k<ALL_APPS.length;k++) if(ALL_APPS[k].name===name) app=ALL_APPS[k];
+    closeP(); haptic(10);
+    if(app){ var tmp=document.createElement('div'); tmp.style.cssText='position:fixed;width:60px;height:60px;right:10px;top:35%;opacity:0;pointer-events:none'; document.body.appendChild(tmp);
+      try{ openApp(app,tmp); }catch(e){} setTimeout(function(){ if(tmp.parentNode) tmp.parentNode.removeChild(tmp); },800); }
+  }); })(pas[j]); }
+
+  /* pull gesture from right edge */
+  var sx=0,sy=0,trk=false,opened=false;
+  document.addEventListener('pointerdown',function(e){
+    if(e.clientX>window.innerWidth-30 && e.clientY>window.innerHeight*0.12 && e.clientY<window.innerHeight*0.9){ trk=true; sx=e.clientX; sy=e.clientY; opened=false; }
+    else trk=false;
+  },{passive:true});
+  document.addEventListener('pointermove',function(e){
+    if(!trk) return;
+    var dx=sx-e.clientX, dy=Math.abs(e.clientY-sy);
+    if(!opened && dx>34 && dy<110){ opened=true; trk=false; openP(); }
+  },{passive:true});
+  ['pointerup','pointercancel'].forEach(function(ev){ document.addEventListener(ev,function(){ trk=false; },{passive:true}); });
+  document.addEventListener('click',function(e){
+    if(panel.style.transform!=='translateX(0px)'&&panel.style.transform!=='translateX(0)') return;
+    if(e.target.closest && (e.target.closest('#tz-strip-panel')||e.target.closest('#tz-strip'))) return;
+    closeP();
+  },true);
+
+  /* visibility: Home + inside apps ONLY */
+  setInterval(function(){
+    try{
+      var show=(state.currentScreen==='home'||state.currentScreen==='app') && !DOM.aodScreen.classList.contains('active') && state.currentScreen!=='lock';
+      strip.style.display=show?'block':'none';
+      if(!show) closeP();
+    }catch(e){}
+  },600);
+
+  console.log('%c[TelzonOS] BUILD v23 · 2026-10-23','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+  setTimeout(function(){ try{ showToast('TelzonOS · Build v23','Edge panel rebuilt','🟣'); }catch(e){} }, 9800);
 })();
 
 })();
