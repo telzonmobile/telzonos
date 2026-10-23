@@ -1346,7 +1346,15 @@ body.tz-ultra .home-app:active .app-icon{transition:transform .12s var(--transit
 .settings-search-wrap{position:static!important;transform:none!important}
 .settings-heading{padding:4px 18px 10px}
 
+
+/* ===== TELZON PREMIUM ===== */
+.tz-crown{position:relative}
+.tz-crown::after{content:'👑';position:absolute;right:-6px;bottom:-4px;font-size:14px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.prem-thumb{position:relative}
+.prem-thumb .lock{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;font-size:26px;background:rgba(0,0,0,.35);border-radius:inherit}
+
 </style>
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%20%22TelzonOS%22%2C%20%22short_name%22%3A%20%22TelzonOS%22%2C%20%22description%22%3A%20%22TelzonOS%20%5Cu2014%20a%20phone-style%20web%20operating%20system%22%2C%20%22start_url%22%3A%20%22.%22%2C%20%22scope%22%3A%20%22.%22%2C%20%22display%22%3A%20%22standalone%22%2C%20%22orientation%22%3A%20%22portrait%22%2C%20%22background_color%22%3A%20%22%230a0a1f%22%2C%20%22theme_color%22%3A%20%22%230a0a1f%22%2C%20%22icons%22%3A%20%5B%7B%22src%22%3A%20%22./icon-192.png%22%2C%20%22sizes%22%3A%20%22192x192%22%2C%20%22type%22%3A%20%22image/png%22%7D%2C%20%7B%22src%22%3A%20%22./icon-512.png%22%2C%20%22sizes%22%3A%20%22512x512%22%2C%20%22type%22%3A%20%22image/png%22%2C%20%22purpose%22%3A%20%22any%20maskable%22%7D%5D%7D"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="apple-touch-icon" href="./icon-192.png">
 </head>
 <body>
 <!-- ===== BOOT SCREEN ===== -->
@@ -5545,7 +5553,191 @@ initIntro();
 
 
 /* ===== TELZON BUILD MARKER (canonical) ===== */
-setTimeout(function(){ try{ showToast('TelzonOS · Build v18','Loaded OK · Firebase connected ☁️','✅'); }catch(e){} }, 9800);
+setTimeout(function(){ try{ showToast('TelzonOS · Build v19','Loaded OK · Premium + Install ready','👑'); }catch(e){} }, 9800);
+
+
+/* ================= TELZON BUILD v19 — Premium + PWA ================= */
+(function(){
+  var TH=window.__TZP=window.__TZP||{}; if(TH.v19) return; TH.v19=1;
+  window.esc = window.esc || function(x){ return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  /* ---------- PWA: service worker + install ---------- */
+  if('serviceWorker' in navigator && /^https?:$/.test(location.protocol)){
+    window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+  }
+  var _bip=null;
+  window.addEventListener('beforeinstallprompt', function(e){ e.preventDefault(); _bip=e; });
+  window.tzInstall=function(){
+    if(_bip){ _bip.prompt(); _bip.userChoice.then(function(r){ if(r.outcome==='accepted'){ showToast('Install','TelzonOS is installing 📲','✅'); } _bip=null; }); }
+    else showToast('Install App','Browser menu → "Install app" / "Add to Home Screen"','📲');
+  };
+  /* Settings → System: Install App row */
+  var _gsh=getSettingsHTML;
+  getSettingsHTML=function(){
+    var h=_gsh();
+    if(h.indexOf('data-settings="installapp"')===-1){
+      h=h.replace('<div class="settings-item" data-settings="about">',
+        '<div class="settings-item" data-settings="installapp"><div class="settings-item-icon green">📲</div><div class="settings-item-text"><div class="settings-item-title">Install App</div><div class="settings-item-sub">Add TelzonOS to your home screen (PWA)</div></div><span class="settings-item-arrow">›</span></div>'+
+        '<div class="settings-item" data-settings="about">');
+    }
+    return h;
+  };
+  var _hsc=handleSettingClick;
+  handleSettingClick=function(t){ if(t==='installapp'){ haptic(10); tzInstall(); return; } _hsc(t); };
+
+  /* ---------- PREMIUM ---------- */
+  state.premium = storageGet('telzon_premium', false);
+  window.tzIsPremium=function(){ return !!state.premium; };
+  function paintPremium(){
+    try{
+      var av=document.querySelector('.settings-account-avatar');
+      if(av) av.classList.toggle('tz-crown', !!state.premium);
+    }catch(e){}
+  }
+  window.tzGoPremium=function(){
+    if(state.premium){ showToast('Premium','You already have Premium 👑','⭐'); return; }
+    var sh=document.getElementById('tz-premium-sheet');
+    if(!sh){
+      sh=document.createElement('div'); sh.className='tz-sheet'; sh.id='tz-premium-sheet';
+      sh.innerHTML='<div class="tz-sheet-box"><div style="font-size:40px;margin-bottom:6px">👑</div><div class="tz-sheet-title">Telzon Premium</div><div class="tz-sheet-sub" style="text-align:left;line-height:1.9">⭐ <b>App Lock</b> — protect any app with your PIN<br>🖼️ <b>Premium wallpapers</b> — exclusive lock-screen looks<br>☁️ <b>Unlimited uploads</b> + priority sync<br>🎨 Crown badge on your account</div>'+
+      '<input class="tz-sheet-input" value="4242 4242 4242 4242"><input class="tz-sheet-input" value="12/28 · 424">'+
+      '<button class="tz-sheet-btn google" id="tz-prem-pay">Pay $4.99 — Demo</button><button class="tz-sheet-btn plain" id="tz-prem-no">Maybe later</button>'+
+      '<div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:8px">Demo checkout — no real payment</div></div>';
+      document.body.appendChild(sh);
+      document.getElementById('tz-prem-no').onclick=function(){ sh.classList.remove('active'); };
+      document.getElementById('tz-prem-pay').onclick=function(){
+        state.premium=true; storageSet('telzon_premium',true);
+        sh.classList.remove('active'); haptic([20,40,20,40,60]);
+        showToast('Premium','Welcome to Telzon Premium 👑','⭐'); paintPremium();
+      };
+    }
+    sh.classList.add('active');
+  };
+
+  /* Premium wallpapers (lock screen picker) */
+  var PREM_WP={'prem:gold':['#f59e0b,#b45309','Royal Gold'],'prem:rose':['#f472b6,#9d174d','Rose Luxury'],'prem:abyss':['#22d3ee,#312e81','Abyss']};
+  var _rwg=renderWallpaperGrid;
+  renderWallpaperGrid=function(){
+    _rwg();
+    try{
+      if(typeof wsCurrentTab!=='undefined' && wsCurrentTab==='wallpapers'){
+        var grid=DOM.wsGrid; if(!grid) return;
+        for(var id in PREM_WP){
+          var t=document.createElement('div');
+          t.className='ws-thumb prem-thumb'+(state.lockWallpaper===id?' active':'');
+          t.setAttribute('data-wp',id);
+          t.style.background='linear-gradient(160deg,'+PREM_WP[id][0]+')';
+          t.innerHTML='<div class="ws-thumb-check">✓</div>'+(state.premium?'':'<div class="lock">👑</div>');
+          grid.appendChild(t);
+          t.onclick=function(){
+            var wid=this.getAttribute('data-wp');
+            if(!state.premium){ tzGoPremium(); return; }
+            state.lockWallpaper=wid; try{ applyLockWallpaper(wid); }catch(e){}
+            var th=grid.querySelectorAll('.ws-thumb'); for(var k=0;k<th.length;k++) th[k].classList.remove('active');
+            this.classList.add('active'); haptic(10);
+          };
+        }
+      }
+    }catch(e){}
+  };
+  var _alw=applyLockWallpaper;
+  applyLockWallpaper=function(wp){
+    if(wp && wp.indexOf('prem:')===0){
+      var g=PREM_WP[wp][0].split(',');
+      if(DOM.lockBg) DOM.lockBg.style.background='radial-gradient(circle at 30% 20%,'+g[0]+'cc 0%,transparent 60%),linear-gradient(160deg,#0a0a1f,'+g[1]+' 60%,#050510)';
+      return;
+    }
+    _alw(wp);
+  };
+
+  /* ---------- PREMIUM FEATURE: App Lock ---------- */
+  var appLocks=storageGet('tz_applocks',[]);
+  window.tzIsAppLocked=function(n){ return appLocks.indexOf(n)>-1; };
+  window.tzToggleAppLock=function(n){
+    var i=appLocks.indexOf(n);
+    if(i>-1){ appLocks.splice(i,1); showToast('App Lock',n+' unlocked','🔓'); }
+    else { appLocks.push(n); showToast('App Lock',n+' locked 🔒','⭐'); }
+    storageSet('tz_applocks',appLocks); haptic(12);
+  };
+  var _olpm=openAppLongPressMenu;
+  openAppLongPressMenu=function(app){
+    _olpm(app);
+    try{
+      var box=document.getElementById('app-lpm-options'); if(!box) return;
+      var locked=tzIsAppLocked(app.name);
+      var opt=document.createElement('div');
+      opt.className='app-lpm-option';
+      opt.innerHTML='<div class="app-lpm-option-icon">'+(state.premium?(locked?'🔓':'🔒'):'🔒')+'</div><div class="app-lpm-option-label">'+(state.premium?(locked?'Unlock app':'Lock app'):'App Lock · Premium')+'</div>';
+      opt.onclick=function(){
+        if(!state.premium){ try{ document.getElementById('app-long-press-menu').classList.remove('active'); }catch(e){} tzGoPremium(); return; }
+        tzToggleAppLock(app.name);
+        try{ document.getElementById('app-long-press-menu').classList.remove('active'); }catch(e){}
+      };
+      box.appendChild(opt);
+    }catch(e){}
+  };
+  var _oa=openApp; var _appUnlockT=null;
+  openApp=function(app, iconEl){
+    if(app && tzIsAppLocked(app.name)){
+      state._pendingAppOpen={app:app, icon:iconEl};
+      tzVerifyLock(function(){
+        var p=state._pendingAppOpen; state._pendingAppOpen=null;
+        state._appUnlockPass=true;
+        clearTimeout(_appUnlockT); _appUnlockT=setTimeout(function(){ state._appUnlockPass=false; },60000);
+        if(p) setTimeout(function(){ _oa(p.app, p.icon); },250);
+      });
+      return;
+    }
+    _oa(app, iconEl);
+  };
+
+  /* ---------- Self-found fix: Settings live search filter ---------- */
+  document.addEventListener('input', function(e){
+    var inp=e.target;
+    if(!inp || !inp.classList || !inp.classList.contains('settings-search')) return;
+    var q=inp.value.trim().toLowerCase();
+    var app=inp.closest('.settings-app'); if(!app) return;
+    var items=app.querySelectorAll('.settings-item');
+    for(var i=0;i<items.length;i++){
+      var txt=items[i].textContent.toLowerCase();
+      items[i].style.display=(!q || txt.indexOf(q)!==-1)?'':'none';
+    }
+    var lists=app.querySelectorAll('.settings-list');
+    for(var l=0;l<lists.length;l++){
+      var any=false; var kids=lists[l].children;
+      for(var k=0;k<kids.length;k++){ if(kids[k].style.display!=='none'){ any=true; break; } }
+      lists[l].style.display=(!q||any)?'':'none';
+      var title=lists[l].previousElementSibling;
+      if(title && title.classList.contains('settings-section-title')) title.style.display=(!q||any)?'':'none';
+    }
+    var acc=app.querySelector('.settings-account'); if(acc) acc.style.display=(!q||'telzon account'.indexOf(q)!==-1)?'':'none';
+  }, true);
+
+  /* account page premium entry */
+  var _oap=openAccountPage;
+  openAccountPage=function(){
+    _oap();
+    try{
+      var pg=document.getElementById('tz-account-page'); if(!pg) return;
+      if(!state.premium){
+        var card=document.createElement('div');
+        card.style.cssText='padding:0 18px 18px';
+        card.innerHTML='<button class="tz-sheet-btn google" id="tz-prem-cta" style="background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 8px 24px rgba(245,158,11,.4)">👑 Go Premium — unlock App Lock & more</button>';
+        pg.appendChild(card);
+        document.getElementById('tz-prem-cta').onclick=function(){ tzGoPremium(); };
+      }
+      paintPremium();
+    }catch(e){}
+  };
+
+  paintPremium();
+  try{ INTRO_SLIDES.push({emoji:'👑',title:'Telzon Premium',bullets:[
+    'Long-press any app → lock it behind your PIN (App Lock).',
+    'Exclusive premium wallpapers in Wallpaper & Style — Royal Gold, Rose Luxury, Abyss.',
+    'Crown badge on your account + unlimited cloud uploads.',
+    'Install TelzonOS from Settings → System → Install App to run it like a real app (PWA).']}); }catch(e){}
+  console.log('%c[TelzonOS] BUILD v19 · Premium + PWA','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+})();
 
 })();
 </script>
