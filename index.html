@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- ═══════════════════════════════════════════
-     TELZON BUILD v46 · 2026-10-25
+     TELZON BUILD v49 · 2026-10-25
      Page3 auto-strip · Settings full-purple · Toast normalized
      Verify: search "BUILD v43" in this file
      ═══════════════════════════════════════════ -->
@@ -2189,7 +2189,7 @@ body.tz-onehand .oh-hint{position:absolute;top:calc(env(safe-area-inset-top) + 4
         if(!fpsCheckEnabled) return;
         var now = performance.now();
         fpsFrameCount++;
-        if(now >= fpsLastTime + 1000){ fpsCurrent = Math.round((fpsFrameCount * 1000) / (now - fpsLastTime)); state.currentFPS = fpsCurrent; fpsFrameCount = 0; fpsLastTime = now; if(fpsCurrent >= state.targetFPS - 5){ lowFpsCount = 0; } if(fpsCurrent < 35){ lowFpsCount++; if(lowFpsCount >= 3 && !state.perfPopupShown && !state.normalMode && Date.now() >= perfPopupCooldownUntil){ showPerfPopup(); } } else { lowFpsCount = 0; } }
+        if(now >= fpsLastTime + 1000){ fpsCurrent = Math.round((fpsFrameCount * 1000) / (now - fpsLastTime)); state.currentFPS = fpsCurrent; fpsFrameCount = 0; fpsLastTime = now; if(fpsCurrent >= state.targetFPS - 5){ lowFpsCount = 0; } if(fpsCurrent < 20){ lowFpsCount++; if(lowFpsCount >= 3 && !state.perfPopupShown && !state.normalMode && Date.now() >= perfPopupCooldownUntil){ showPerfPopup(); } } else { lowFpsCount = 0; } }
         requestAnimationFrame(monitorFPS);
     }
     function showPerfPopup(){ if(!DOM.perfPopup||state.perfPopupShown||state.normalMode||Date.now()<perfPopupCooldownUntil)return; state.perfPopupShown=true; DOM.perfPopup.classList.add('visible'); haptic(20); }
@@ -3753,7 +3753,7 @@ body.tz-onehand .oh-hint{position:absolute;top:calc(env(safe-area-inset-top) + 4
         void DOM.appWindow.offsetHeight;
         requestAnimationFrame(function(){
             requestAnimationFrame(function(){
-                DOM.appWindow.style.transition = 'transform .5s cubic-bezier(.3,1.15,.4,1), opacity .3s ease, border-radius .5s cubic-bezier(.3,1.15,.4,1)';
+                DOM.appWindow.style.transition = 'transform '+(0.42*(state.animScale||1))+'s cubic-bezier(.32,.72,0,1), opacity '+(0.2*(state.animScale||1))+'s ease, border-radius '+(0.42*(state.animScale||1))+'s cubic-bezier(.32,.72,0,1)';
                 DOM.appWindow.style.transform = 'scale(1,1)';
                 DOM.appWindow.style.opacity = '1';
                 DOM.appWindow.style.borderRadius = '0px';
@@ -3800,7 +3800,7 @@ body.tz-onehand .oh-hint{position:absolute;top:calc(env(safe-area-inset-top) + 4
         DOM.appWindow.style.borderRadius = '0px';
         void DOM.appWindow.offsetHeight;
         requestAnimationFrame(function(){
-            DOM.appWindow.style.transition = 'transform .54s cubic-bezier(.34,1.18,.64,1), opacity .38s ease .04s, border-radius .54s cubic-bezier(.34,1.18,.64,1)';
+            DOM.appWindow.style.transition = 'transform '+(0.45*(state.animScale||1))+'s cubic-bezier(.34,1.18,.64,1), opacity '+(0.22*(state.animScale||1))+'s ease, border-radius '+(0.45*(state.animScale||1))+'s cubic-bezier(.34,1.18,.64,1)';
             DOM.appWindow.style.transform = 'scale(' + _csx + ',' + _csy + ')';
             DOM.appWindow.style.opacity = '0';
             DOM.appWindow.style.borderRadius = '36px';
@@ -4775,10 +4775,14 @@ initIntro();
     window.addEventListener('deviceorientation',function(e){ if(e.gamma==null) return; tx=Math.max(-1,Math.min(1,e.gamma/25)); ty=Math.max(-1,Math.min(1,((e.beta||45)-45)/25)); },{passive:true});
     document.addEventListener('pointermove',function(e){ if(state._effSmooth==='save'||state.parallaxOn===false) return; tx=(e.clientX/window.innerWidth-0.5)*2; ty=(e.clientY/window.innerHeight-0.5)*2; },{passive:true});
     (function loop(){
+      if(state._effSmooth==='save'){ requestAnimationFrame(loop); return; }
       cx+=(tx-cx)*0.06; cy+=(ty-cy)*0.06;
-      var px=(-cx*12).toFixed(1)+'px', py=(-cy*12).toFixed(1)+'px';
-      var hs=document.getElementById('home-screen'); if(hs) hs.style.setProperty('--tzpx',px), hs.style.setProperty('--tzpy',py);
-      var lb=document.getElementById('lock-screen-bg'); if(lb) lb.style.transform='translate('+px+','+py+') scale(1.14)';
+      var px=(-cx*12).toFixed(1), py=(-cy*12).toFixed(1);
+      if(Math.abs(px-(state._ppx||0))>0.4||Math.abs(py-(state._ppy||0))>0.4){
+        state._ppx=px; state._ppy=py;
+        var hs=document.getElementById('home-screen'); if(hs) hs.style.setProperty('--tzpx',px+'px'), hs.style.setProperty('--tzpy',py+'px');
+        var lb=document.getElementById('lock-screen-bg'); if(lb) lb.style.transform='translate('+px+'px,'+py+'px) scale(1.14)';
+      }
       requestAnimationFrame(loop);
     })();
   })();
@@ -7291,10 +7295,10 @@ initIntro();
     var p=document.getElementById(id); if(!p) return;
     var y0=0, tracking=false;
     p.addEventListener('touchstart',function(e){ if(e.target.closest && e.target.closest('.slider-track,.tz-seek'))return; y0=e.touches[0].clientY; tracking=true; },{passive:true});
-    p.addEventListener('touchend',function(e){ if(!tracking) return; tracking=false; if(e.changedTouches[0].clientY-y0>70){ p.classList.remove('visible'); haptic(10); } },{passive:true});
+    p.addEventListener('touchend',function(e){ if(!tracking) return; tracking=false; if(e.target.closest&&e.target.closest('.cc-resize-handle'))return; if(p.querySelector('.cc-btn.resizable'))return; if(e.changedTouches[0].clientY-y0>70){ p.classList.remove('visible'); haptic(10); } },{passive:true});
     var my0=0,mtr=false;
     p.addEventListener('mousedown',function(e){ my0=e.clientY; mtr=true; });
-    p.addEventListener('mouseup',function(e){ if(!mtr) return; mtr=false; if(e.clientY-my0>70){ p.classList.remove('visible'); } });
+    p.addEventListener('mouseup',function(e){ if(!mtr) return; mtr=false; if(e.target.closest&&e.target.closest('.cc-resize-handle'))return; if(p.querySelector('.cc-btn.resizable'))return; if(e.clientY-my0>70){ p.classList.remove('visible'); } });
   });
 
   document.addEventListener('click',function(e){
@@ -7388,7 +7392,7 @@ initIntro();
       var playing = tmusicAudio && !tmusicAudio.paused && tmusicAudio.src;
       var lock=document.getElementById('lock-screen');
       var existing=document.getElementById('tz-lock-media');
-      if(playing && lock && lock.style.display!=='none'){
+      if(playing && lock && lock.style.display!=='none' && !lock.classList.contains('pin-mode') && !lock.classList.contains('pw-mode') && !lock.classList.contains('lockout-mode')){
         if(!existing){
           existing=document.createElement('div'); existing.id='tz-lock-media';
           lock.appendChild(existing);
@@ -8450,7 +8454,7 @@ initIntro();
   },500);
 })();
 
-setTimeout(function(){ try{ showToast('TelzonOS · Build v45','Loaded OK','🏗️'); }catch(e){} }, 9800);
+setTimeout(function(){ try{ showToast('TelzonOS · Build v49','Loaded OK','✅'); }catch(e){} }, 9800);
 
 (function(){
   var UG=window.__TZP=window.__TZP||{}; if(UG.v45) return; UG.v45=1;
@@ -8488,7 +8492,8 @@ setTimeout(function(){ try{ showToast('TelzonOS · Build v45','Loaded OK','🏗�
     h+='<div class="settings-item" data-settings="wallpaper"><div class="settings-item-icon pink">🖼️</div><div class="settings-item-text"><div class="settings-item-title">Wallpaper &amp; Style</div><div class="settings-item-sub">Customize home &amp; lock</div></div><span class="settings-item-arrow">›</span></div>';
     h+='<div class="settings-item" data-settings="refreshrate"><div class="settings-item-icon cyan">💫</div><div class="settings-item-text"><div class="settings-item-title">Refresh rate</div><div class="settings-item-sub" id="smoothness-status">'+(state.refreshRate==='auto'?'Auto adapt':state.refreshRate+' Hz')+'</div></div><span class="settings-item-arrow">›</span></div>';
     h+='<div class="settings-item" data-settings="parallax"><div class="settings-item-icon purple">🌊</div><div class="settings-item-text"><div class="settings-item-title">Parallax Wallpaper</div><div class="settings-item-sub" id="parallax-status">'+((state._effSmooth==='save')?'Off (60 Hz / power)':((state.parallaxOn!==false)?'On':'Off'))+'</div></div><div class="settings-toggle'+((state.parallaxOn!==false)?' on':'')+'" id="parallax-toggle"></div></div>';
-    h+='</div>';
+        h+='<div class="settings-item" data-settings="animspeed"><div class="settings-item-icon yellow">🎞️</div><div class="settings-item-text"><div class="settings-item-title">Animation Speed</div><div class="settings-item-sub" id="tz-anim-sub">'+((state.animScale||1)+'x')+'</div></div><span class="settings-item-arrow">›</span></div>';
+h+='</div>';
 
     h+='<div class="settings-section-title">Battery</div><div class="settings-list">';
     h+='<div class="settings-item" data-settings="battery"><div class="settings-item-icon green">🔋</div><div class="settings-item-text"><div class="settings-item-title">Battery Percentage</div><div class="settings-item-sub">'+(batteryLevelPct||80)+'%</div></div><div class="settings-toggle'+(state.showBatteryPercent?' on':'')+'" id="battery-pct-toggle"></div></div>';
@@ -8525,6 +8530,201 @@ setTimeout(function(){ try{ showToast('TelzonOS · Build v45','Loaded OK','🏗�
       }
     }catch(e){}
   },500);
+})();
+
+
+/* ================= TELZON BUILD v47 — WebIDE (build & run web apps in OS) ================= */
+(function(){
+  var UH=window.__TZP=window.__TZP||{}; if(UH.v47) return; UH.v47=1;
+  window.esc = window.esc || function(x){ return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
+
+  function webapps(){ return storageGet('tz_webapps',[]); }
+  function saveWebapps(l){ try{ storageSet('tz_webapps',l); }catch(e){ showToast('WebIDE','Storage full — app too large','⚠️'); } }
+  function webappByName(n){ var l=webapps(); for(var i=0;i<l.length;i++) if(l[i].name===n) return l[i]; return null; }
+
+  /* register WebIDE + restore user web apps on boot */
+  (function(){
+    var exists=false;
+    for(var i=0;i<ALL_APPS.length;i++) if(ALL_APPS[i].name==='WebIDE') exists=true;
+    if(!exists){ ALL_APPS.push({name:'WebIDE', icon:'<span style="font-size:26px;position:relative;z-index:3">💻</span>', className:'icon-telzonai'}); }
+    var l=webapps(); var added=false;
+    for(var j=0;j<l.length;j++){
+      var has=false;
+      for(var k=0;k<ALL_APPS.length;k++) if(ALL_APPS[k].name===l[j].name) has=true;
+      if(!has){ ALL_APPS.push({name:l[j].name, icon:'<span style="font-size:26px;position:relative;z-index:3">'+l[j].icon+'</span>', className:'icon-tstore'}); added=true; }
+    }
+    if(added) try{ buildHomeGrid(); }catch(e){}
+  })();
+
+  /* WebIDE app UI */
+  function webIde(){
+    var editing=null;
+    function render(){
+      var l=webapps();
+      var myApps='';
+      for(var i=0;i<l.length;i++){ (function(a){ myApps+='<div style="display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid rgba(255,255,255,.1);border-radius:14px;margin-bottom:8px;background:rgba(255,255,255,.05)"><span style="font-size:20px">'+a.icon+'</span><span style="flex:1;color:#fff;font-size:13.5px;font-weight:500">'+esc(a.name)+'</span><button class="tzw-run" data-id="'+a.id+'" style="border:none;background:linear-gradient(135deg,#a78bfa,#7c3aed);color:#fff;border-radius:100px;padding:7px 14px;font-size:11.5px;font-weight:600;cursor:pointer">▶ Run</button><button class="tzw-edit" data-id="'+a.id+'" style="border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:100px;padding:7px 12px;font-size:11.5px;cursor:pointer">Edit</button><button class="tzw-del" data-id="'+a.id+'" style="border:1px solid rgba(239,68,68,.4);background:rgba(239,68,68,.12);color:#f87171;border-radius:100px;padding:7px 12px;font-size:11.5px;cursor:pointer">✕</button></div>'; })(l[i]); }
+      if(!l.length) myApps='<div style="color:rgba(255,255,255,.4);font-size:13px;padding:14px 0;text-align:center">No web apps yet — create your first below 👇</div>';
+      DOM.appWindowContent.innerHTML=
+      '<div style="padding:14px 14px 140px;max-width:640px;margin:0 auto">'+
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:30px">💻</span><div><div style="font-size:22px;font-weight:300;color:#fff">WebIDE</div><div style="font-size:11px;color:rgba(255,255,255,.5)">Build &amp; run web apps inside TelzonOS</div></div><button id="tzw-import" style="margin-left:auto;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:100px;padding:8px 14px;font-size:12px;cursor:pointer">📥 Import HTML</button></div>'+
+      '<div style="font-size:11px;font-weight:600;letter-spacing:1.5px;color:rgba(255,255,255,.45);text-transform:uppercase;margin:6px 0 8px">My Web Apps</div>'+myApps+
+      '<div style="font-size:11px;font-weight:600;letter-spacing:1.5px;color:rgba(255,255,255,.45);text-transform:uppercase;margin:16px 0 8px">'+(editing?'Edit App':'New App')+'</div>'+
+      '<div style="display:flex;gap:8px;margin-bottom:8px"><input id="tzw-name" placeholder="App name" value="'+(editing?esc(editing.name):'')+'" style="flex:1;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:#fff;outline:none;font-size:14px">'+
+      '<select id="tzw-icon" style="padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:#fff;font-size:16px;outline:none">'+
+      ['🚀','🎮','📝','🎨','🎵','📊','🛒','💬','🔧','🌟','📷','🎯','📚','❤️'].map(function(e){ return '<option '+(editing&&editing.icon===e?'selected':'')+'>'+e+'</option>'; }).join('')+
+      '</select></div>'+
+      '<textarea id="tzw-code" spellcheck="false" placeholder="Write your HTML here…&#10;&#10;<!DOCTYPE html>&#10;<html>&#10;<body>&#10;  <h1>Hello TelzonOS!</h1>&#10;  <button onclick=&quot;alert(\'It works!\')&quot;>Tap me</button>&#10;</body>&#10;</html>" style="width:100%;height:300px;padding:14px;border-radius:16px;border:1px solid rgba(255,255,255,.15);background:rgba(0,0,0,.45);color:#7ee787;font-family:monospace;font-size:12.5px;line-height:1.6;outline:none;resize:vertical">'+(editing?esc(editing.code):'')+'</textarea>'+
+      '<div style="display:flex;gap:10px;margin-top:12px">'+
+      '<button id="tzw-preview" class="tz-sheet-btn plain" style="flex:1">👁 Preview</button>'+
+      '<button id="tzw-save" class="tz-sheet-btn google" style="flex:1">'+(editing?'💾 Update App':'💾 Save as App')+'</button>'+
+      (editing?'<button id="tzw-cancel" class="tz-sheet-btn plain" style="flex:0 0 auto">Cancel</button>':'')+
+      '</div>'+
+      '<div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:12px;line-height:1.7">💡 Tips: single-file HTML (include &lt;style&gt; and &lt;script&gt; inline). Apps are stored on-device and appear on your Home screen. Use Import HTML to load files made in Acode/TrebEdit.</div>'+
+      '</div>';
+      /* wire */
+      var rs=DOM.appWindowContent.querySelectorAll('.tzw-run');
+      for(var a=0;a<rs.length;a++){ (function(b){ b.onclick=function(){ var app=null; var ll=webapps(); for(var x=0;x<ll.length;x++) if(ll[x].id===b.getAttribute('data-id')) app=ll[x]; if(app) runWebApp(app); }; })(rs[a]); }
+      var es=DOM.appWindowContent.querySelectorAll('.tzw-edit');
+      for(var c=0;c<es.length;c++){ (function(b){ b.onclick=function(){ var ll=webapps(); for(var x=0;x<ll.length;x++) if(ll[x].id===b.getAttribute('data-id')){ editing=ll[x]; render(); window.scrollTo(0,0); break; } }; })(es[c]); }
+      var ds=DOM.appWindowContent.querySelectorAll('.tzw-del');
+      for(var d=0;d<ds.length;d++){ (function(b){ b.onclick=function(){
+        var ll=webapps(); var nm=''; var nl=[];
+        for(var x=0;x<ll.length;x++){ if(ll[x].id===b.getAttribute('data-id')) nm=ll[x].name; else nl.push(ll[x]); }
+        saveWebapps(nl);
+        var na=[]; for(var y=0;y<ALL_APPS.length;y++) if(ALL_APPS[y].name!==nm||nm==='') na.push(ALL_APPS[y]);
+        ALL_APPS.length=0; for(var z=0;z<na.length;z++) ALL_APPS.push(na[z]);
+        try{ buildHomeGrid(); }catch(e){}
+        showToast('WebIDE',nm+' deleted','🗑️'); render();
+      }; })(ds[d]); }
+      document.getElementById('tzw-preview').onclick=function(){
+        var code=document.getElementById('tzw-code').value;
+        var ov=document.getElementById('tzw-ov'); if(ov) ov.remove();
+        ov=document.createElement('div'); ov.id='tzw-ov';
+        ov.style.cssText='position:fixed;inset:0;z-index:9600;background:#fff;display:flex;flex-direction:column';
+        ov.innerHTML='<div style="display:flex;gap:10px;padding:10px 14px;background:#0a0a15;align-items:center"><span style="color:#fff;font-size:13px;flex:1">Preview</span><button id="tzw-ov-x" style="border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;border-radius:100px;padding:6px 14px;font-size:12px;cursor:pointer">✕ Close</button></div>';
+        var fr=document.createElement('iframe');
+        fr.setAttribute('sandbox','allow-scripts allow-modals allow-forms');
+        fr.style.cssText='flex:1;border:none;width:100%';
+        fr.srcdoc=code;
+        ov.appendChild(fr);
+        document.body.appendChild(ov);
+        document.getElementById('tzw-ov-x').onclick=function(){ ov.remove(); };
+      };
+      document.getElementById('tzw-save').onclick=function(){
+        var name=document.getElementById('tzw-name').value.trim();
+        var icon=document.getElementById('tzw-icon').value;
+        var code=document.getElementById('tzw-code').value;
+        if(!name){ showToast('WebIDE','Give your app a name','⚠️'); return; }
+        if(!code.trim()){ showToast('WebIDE','Write some code first','⚠️'); return; }
+        var ll=webapps();
+        if(editing){
+          for(var x=0;x<ll.length;x++) if(ll[x].id===editing.id){ ll[x].name=name; ll[x].icon=icon; ll[x].code=code; ll[x].date=Date.now(); }
+        } else {
+          ll.push({id:'wapp_'+Date.now(), name:name, icon:icon, code:code, date:Date.now()});
+        }
+        saveWebapps(ll);
+        var has=false; for(var y=0;y<ALL_APPS.length;y++) if(ALL_APPS[y].name===name) has=true;
+        if(!has){ ALL_APPS.push({name:name, icon:'<span style="font-size:26px;position:relative;z-index:3">'+icon+'</span>', className:'icon-tstore'}); try{ buildHomeGrid(); }catch(e){} }
+        showToast('WebIDE',(editing?'Updated':'Installed')+': '+name+' ✓','💻');
+        haptic([15,30,15]);
+        editing=null; render();
+      };
+      var cn=document.getElementById('tzw-cancel');
+      if(cn) cn.onclick=function(){ editing=null; render(); };
+      document.getElementById('tzw-import').onclick=function(){
+        var inp=document.createElement('input'); inp.type='file'; inp.accept='.html,.htm,.txt';
+        inp.onchange=function(ev){ var f=ev.target.files[0]; if(!f) return; var r=new FileReader();
+          r.onload=function(e){ var ta=document.getElementById('tzw-code'); if(ta) ta.value=String(e.target.result);
+            var nm=document.getElementById('tzw-name'); if(nm&&!nm.value) nm.value=f.name.replace(/\.(html?|txt)$/i,'');
+            showToast('WebIDE',f.name+' loaded into editor','📥'); };
+          r.readAsText(f); };
+        inp.click();
+      };
+    }
+    render();
+  }
+
+  function runWebApp(app){
+    DOM.appNameText.textContent=app.name;
+    DOM.appWindowContent.innerHTML='<div style="position:absolute;top:0;left:0;right:0;bottom:0;background:#fff"><iframe id="tzw-frame" style="width:100%;height:100%;border:none"></iframe></div>';
+    var fr=document.getElementById('tzw-frame');
+    fr.setAttribute('sandbox','allow-scripts allow-modals allow-forms allow-popups allow-same-origin');
+    fr.srcdoc=app.code;
+  }
+
+  var _r47=renderAppContent;
+  renderAppContent=function(app){
+    if(app && app.name==='WebIDE'){ try{ webIde(); return; }catch(e){ console.error(e); } }
+    if(app){ var wa=webappByName(app.name); if(wa){ try{ runWebApp(wa); return; }catch(e){ console.error(e); } } }
+    _r47(app);
+  };
+
+  console.log('%c[TelzonOS] BUILD v47 · WebIDE','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+})();
+
+
+/* ================= TELZON BUILD v48 — cloud sync + polish ================= */
+(function(){
+  var UI=window.__TZP=window.__TZP||{}; if(UI.v48) return; UI.v48=1;
+
+  /* ---- Cloud storage: mirror ALL settings to Firestore (signed-in only) ---- */
+  var CLOUD_SKIP=['tz_photo_uploads','tz_video_uploads','tz_fs','tz_vidb_meta','telzon_gemini_key','tz_batt hist'];
+  var _ss=storageSet;
+  storageSet=function(k,v){
+    _ss(k,v);
+    try{
+      if(window.firebase && firebase.apps && firebase.apps.length && state.account && state.account.uid && CLOUD_SKIP.indexOf(k)<0){
+        var val=JSON.stringify(v);
+        if(val && val.length<600000){
+          firebase.firestore().collection('tz_users').doc(state.account.uid).collection('kv').doc(k).set({v:val,t:Date.now()}).catch(function(){});
+        }
+      }
+    }catch(e){}
+  };
+  /* pull cloud → local on boot/sign-in (once) */
+  var pulled=false;
+  function cloudPull(){
+    if(pulled) return;
+    try{
+      if(!(window.firebase && firebase.apps && firebase.apps.length && state.account && state.account.uid)) return;
+      pulled=true;
+      firebase.firestore().collection('tz_users').doc(state.account.uid).collection('kv').get().then(function(sn){
+        var n=0;
+        sn.forEach(function(d){
+          var k=d.id;
+          if(CLOUD_SKIP.indexOf(k)>=0) return;
+          var cur=null; try{ cur=localStorage.getItem(k); }catch(e){}
+          if(cur===null && d.data() && d.data().v!==undefined){ try{ localStorage.setItem(k,d.data().v); n++; }catch(e){} }
+        });
+        if(n>0){ showToast('Cloud Sync', n+' settings restored from cloud ☁️','☁️'); setTimeout(function(){ location.reload(); },1500); }
+      }).catch(function(){ pulled=false; });
+    }catch(e){}
+  }
+  setInterval(cloudPull, 8000);
+
+  console.log('%c[TelzonOS] BUILD v48 · cloud sync','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
+})();
+
+
+/* ================= TELZON BUILD v49 — animation speed ================= */
+(function(){
+  var UJ=window.__TZP=window.__TZP||{}; if(UJ.v49) return; UJ.v49=1;
+  state.animScale=storageGet('tz_animscale',1)||1;
+  var _h7=handleSettingClick;
+  handleSettingClick=function(t){
+    if(t==='animspeed'){
+      var order=[0.5,1,1.5,2];
+      state.animScale=order[(order.indexOf(state.animScale)+1)%order.length];
+      storageSet('tz_animscale',state.animScale);
+      var el=document.getElementById('tz-anim-sub');
+      if(el) el.textContent=state.animScale+'x';
+      haptic(10);
+      showToast('Animation Speed', state.animScale+'x · '+(state.animScale<1?'Faster':(state.animScale>1?'Slower':'Default')),'🎞️');
+      return;
+    }
+    _h7(t);
+  };
+  console.log('%c[TelzonOS] BUILD v49 · anim speed','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
 })();
 
 })();
