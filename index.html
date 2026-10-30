@@ -8761,6 +8761,76 @@ h+='</div>';
   console.log('%c[TelzonOS] BUILD v49 · anim speed','background:#7c3aed;color:#fff;padding:4px 10px;border-radius:6px;font-weight:bold');
 })();
 
+
+/* TELZON_YOUTUBE_APP_V1 — YouTube search + player */
+(function(){
+  var TZ=window.__TZP=window.__TZP||{}; if(TZ.youtubeApp) return; TZ.youtubeApp=1;
+  var API_KEY_STORE='telzon_youtube_api_key';
+  var youtubeIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z"/></svg>';
+  var youtubeApp={name:'YouTube',icon:youtubeIcon,className:'icon-youtube'};
+  if(!ALL_APPS.some(function(a){return a.name==='YouTube';})) ALL_APPS.push(youtubeApp);
+  if(PAGE2_ORDER.indexOf('YouTube')<0) PAGE2_ORDER.push('YouTube');
+  var css=document.createElement('style');
+  css.textContent='.icon-youtube{--telzon-bg:linear-gradient(155deg,#ff7777,#ff0000 60%,#990000);--telzon-glow:rgba(255,35,35,.72)}.youtube-app{min-height:100%;padding:14px 16px 32px;color:#fff;background:radial-gradient(circle at 80% 0%,rgba(255,0,0,.16),transparent 42%),#09090f}.yt-intro{margin:0 0 18px}.yt-kicker{font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.48);font-weight:700}.yt-intro h2{font-size:25px;margin:8px 0 5px;font-weight:650;letter-spacing:-.5px}.yt-intro p,.yt-help{font-size:12px;line-height:1.5;color:rgba(255,255,255,.62);margin:0}.yt-search-form{display:flex;gap:8px;margin:16px 0 12px}.yt-search-input,.yt-key-input{width:100%;min-width:0;box-sizing:border-box;border:1px solid rgba(255,255,255,.16);border-radius:13px;background:rgba(255,255,255,.08);color:#fff;padding:13px 14px;font:inherit;font-size:14px;outline:none}.yt-search-input:focus,.yt-key-input:focus{border-color:rgba(255,75,75,.8);box-shadow:0 0 0 3px rgba(255,40,40,.14)}.yt-search-button,.yt-small-button{border:0;border-radius:13px;background:#f22;color:#fff;padding:0 16px;font:inherit;font-weight:700;cursor:pointer;white-space:nowrap}.yt-search-button:disabled{opacity:.55;cursor:wait}.yt-key-panel{padding:12px 13px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.045);margin:0 0 16px}.yt-key-panel summary{cursor:pointer;font-size:12px;font-weight:650;color:rgba(255,255,255,.82)}.yt-key-panel .yt-help{margin:10px 0}.yt-key-actions{display:flex;gap:8px;margin:9px 0}.yt-small-button{padding:9px 12px;font-size:12px}.yt-small-button.secondary{background:rgba(255,255,255,.12)}.yt-status{font-size:12px;color:rgba(255,255,255,.72);min-height:18px;margin:10px 0}.yt-status.error{color:#ff9e9e}.yt-player{display:none;margin:14px 0 18px}.yt-player.active{display:block}.yt-player-frame{width:100%;aspect-ratio:16/9;border:0;border-radius:14px;background:#000;display:block}.yt-now-title{font-size:14px;line-height:1.4;font-weight:650;margin:10px 0 4px}.yt-external-link{display:inline-block;color:#ff8585;font-size:12px;text-decoration:none;margin-top:5px}.yt-results{display:grid;gap:10px}.yt-result{display:flex;width:100%;gap:11px;align-items:flex-start;text-align:left;color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.055);padding:8px;cursor:pointer;font:inherit}.yt-result:active{transform:scale(.99);background:rgba(255,255,255,.1)}.yt-thumb{width:124px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:rgba(255,255,255,.08);flex:none}.yt-result-copy{min-width:0;padding:2px 0}.yt-video-title{font-size:12px;line-height:1.35;font-weight:650;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.yt-channel{font-size:11px;color:rgba(255,255,255,.55);margin-top:6px}.yt-search-note{font-size:11px;color:rgba(255,255,255,.48);line-height:1.45;margin:14px 0}.youtube-app button:focus-visible,.youtube-app a:focus-visible{outline:2px solid #ff7777;outline-offset:2px}@media(max-width:380px){.yt-thumb{width:104px}.yt-intro h2{font-size:22px}.yt-search-form{gap:6px}.yt-search-button{padding:0 12px}}';
+  document.head.appendChild(css);
+  function escHtml(value){return String(value==null?'':value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+  function getYoutubeHTML(){
+    var savedKey=''; try{savedKey=localStorage.getItem(API_KEY_STORE)||'';}catch(e){}
+    return '<div class="youtube-app"><div class="yt-intro"><div class="yt-kicker">TELZONOS · VIDEO</div><h2>Search YouTube</h2><p>Find videos and play them without leaving TelzonOS.</p></div><form class="yt-search-form" id="yt-search-form"><input class="yt-search-input" id="yt-search-query" type="search" placeholder="Search videos…" aria-label="Search YouTube videos" required><button class="yt-search-button" id="yt-search-button" type="submit">Search</button></form><details class="yt-key-panel" id="yt-key-panel" '+(savedKey?'':'open')+'><summary>YouTube API key settings</summary><p class="yt-help">A Google YouTube Data API v3 key is required for video search. It stays in this browser on this device; it is not added to TelzonOS source code.</p><input class="yt-key-input" id="yt-api-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste your API key" aria-label="YouTube Data API key"><div class="yt-key-actions"><button class="yt-small-button" id="yt-save-key" type="button">Save key</button><button class="yt-small-button secondary" id="yt-remove-key" type="button">Remove key</button></div><p class="yt-help">In Google Cloud, enable YouTube Data API v3. Restrict the key to this site (HTTP referrer) and to YouTube Data API v3. Browser keys are visible to visitors, so do not use an unrestricted key.</p></details><div class="yt-status" id="yt-status" aria-live="polite"></div><section class="yt-player" id="yt-player" aria-label="Video player"><iframe class="yt-player-frame" id="yt-player-frame" title="YouTube video player" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><div class="yt-now-title" id="yt-now-title"></div><a class="yt-external-link" id="yt-external-link" target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a><p class="yt-search-note">Some videos do not allow playback inside other sites. If one will not play, open it on YouTube.</p></section><div class="yt-results" id="yt-results"></div><p class="yt-search-note">Video search and playback are provided by YouTube. Search availability depends on the API key and its daily usage limits.</p></div>';
+  }
+  function setYoutubeStatus(message,isError){var el=document.getElementById('yt-status');if(!el)return;el.textContent=message||'';el.classList.toggle('error',!!isError);}
+  function renderYoutubeResults(items){
+    var list=document.getElementById('yt-results');if(!list)return;list.textContent='';
+    var videos=(items||[]).filter(function(item){return item&&item.id&&item.id.kind==='youtube#video'&&item.id.videoId&&item.snippet;});
+    if(!videos.length){setYoutubeStatus('No videos found. Try a different search.',false);return;}
+    setYoutubeStatus('Showing '+videos.length+' videos.',false);
+    videos.forEach(function(item){
+      var title=String(item.snippet.title||'Untitled video');
+      var channel=String(item.snippet.channelTitle||'YouTube channel');
+      var thumb=(item.snippet.thumbnails&&((item.snippet.thumbnails.medium&&item.snippet.thumbnails.medium.url)||(item.snippet.thumbnails.default&&item.snippet.thumbnails.default.url)))||'';
+      var button=document.createElement('button');button.type='button';button.className='yt-result';button.setAttribute('aria-label','Play '+title);
+      if(thumb){var image=document.createElement('img');image.className='yt-thumb';image.src=thumb;image.alt='';image.loading='lazy';image.referrerPolicy='strict-origin-when-cross-origin';button.appendChild(image);}
+      var copy=document.createElement('span');copy.className='yt-result-copy';
+      var titleEl=document.createElement('span');titleEl.className='yt-video-title';titleEl.textContent=title;
+      var channelEl=document.createElement('span');channelEl.className='yt-channel';channelEl.textContent=channel;
+      copy.appendChild(titleEl);copy.appendChild(channelEl);button.appendChild(copy);
+      button.addEventListener('click',function(){playYoutubeVideo(item.id.videoId,title);});list.appendChild(button);
+    });
+  }
+  function playYoutubeVideo(videoId,title){
+    var player=document.getElementById('yt-player');var frame=document.getElementById('yt-player-frame');var titleEl=document.getElementById('yt-now-title');var external=document.getElementById('yt-external-link');if(!player||!frame)return;
+    var safeId=encodeURIComponent(String(videoId));frame.src='https://www.youtube-nocookie.com/embed/'+safeId+'?autoplay=1&playsinline=1';titleEl.textContent=title||'Now playing';external.href='https://www.youtube.com/watch?v='+safeId;player.classList.add('active');player.scrollIntoView({behavior:'smooth',block:'nearest'});
+  }
+  function initYoutube(){
+    var form=document.getElementById('yt-search-form');var input=document.getElementById('yt-search-query');var keyInput=document.getElementById('yt-api-key');var saveButton=document.getElementById('yt-save-key');var removeButton=document.getElementById('yt-remove-key');var searchButton=document.getElementById('yt-search-button');var panel=document.getElementById('yt-key-panel');if(!form)return;
+    try{keyInput.value=localStorage.getItem(API_KEY_STORE)||'';}catch(e){}
+    saveButton.addEventListener('click',function(){var value=keyInput.value.trim();if(!value){setYoutubeStatus('Enter a YouTube Data API key first.',true);return;}try{localStorage.setItem(API_KEY_STORE,value);panel.open=false;setYoutubeStatus('API key saved on this device.',false);}catch(e){setYoutubeStatus('This browser could not save the key. Check its storage settings.',true);}});
+    removeButton.addEventListener('click',function(){try{localStorage.removeItem(API_KEY_STORE);}catch(e){}keyInput.value='';panel.open=true;setYoutubeStatus('Saved API key removed from this device.',false);});
+    form.addEventListener('submit',async function(event){
+      event.preventDefault();var apiKey='';try{apiKey=localStorage.getItem(API_KEY_STORE)||'';}catch(e){}
+      if(!apiKey){panel.open=true;setYoutubeStatus('Add your YouTube Data API key in the settings above to search.',true);return;}
+      var query=input.value.trim();if(!query)return;searchButton.disabled=true;searchButton.textContent='Searching…';setYoutubeStatus('Searching YouTube…',false);
+      var list=document.getElementById('yt-results');list.textContent='';
+      try{
+        var url=new URL('https://www.googleapis.com/youtube/v3/search');url.searchParams.set('part','snippet');url.searchParams.set('type','video');url.searchParams.set('maxResults','12');url.searchParams.set('safeSearch','moderate');url.searchParams.set('q',query);url.searchParams.set('key',apiKey);
+        var response=await fetch(url.toString());var data=await response.json();
+        if(!response.ok){var reason=data&&data.error&&data.error.errors&&data.error.errors[0]&&data.error.errors[0].reason;var message=reason==='quotaExceeded'?'YouTube search quota reached for this key. Try again after its quota resets.':(data&&data.error&&data.error.message)||'YouTube search failed ('+response.status+').';throw new Error(message);}
+        renderYoutubeResults(data.items||[]);
+      }catch(error){setYoutubeStatus(error&&error.message?error.message:'Could not reach YouTube. Check your connection and API key.',true);}
+      finally{searchButton.disabled=false;searchButton.textContent='Search';}
+    });
+  }
+  var previousRenderAppContent=renderAppContent;
+  renderAppContent=function(app){
+    if(app&&app.name==='YouTube'){
+      state.currentOpenApp=app;DOM.appNameText.textContent='YouTube';DOM.appNameBar.style.display='';DOM.appWindowContent.style.padding='';DOM.appWindowContent.innerHTML=getYoutubeHTML();initYoutube();return;
+    }
+    previousRenderAppContent(app);
+  };
+  try{buildHomeGrid();}catch(e){console.error('[YouTube app home icon]',e);}
+  console.log('[TelzonOS] YouTube app ready');
+})();
+
 })();
 </script>
 </body>
